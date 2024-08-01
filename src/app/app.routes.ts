@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { OrdersComponent } from './components';
+import { OrdersComponent } from './pages';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/orders', pathMatch: 'full' },
@@ -14,7 +14,7 @@ export const routes: Routes = [
     path: 'orders/:id',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./components/order-details/order-details.component').then(
+      import('./pages/order-details/order-details.component').then(
         (component) => component.OrderDetailsComponent
       ),
   },
@@ -23,7 +23,7 @@ export const routes: Routes = [
     path: 'sculptures/:id',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./components/sculpture-details/sculpture-details.component').then(
+      import('./pages/sculpture-details/sculpture-details.component').then(
         (component) => component.SculptureDetailsComponent
       ),
   },
@@ -32,8 +32,8 @@ export const routes: Routes = [
     path: 'orders/new',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./components/order-form/order-form.component').then(
-        (component) => component.OrderFormComponent
+      import('./pages/add-order/add-order.component').then(
+        (component) => component.AddOrderComponent
       ),
   },
 
@@ -41,8 +41,8 @@ export const routes: Routes = [
     path: 'sculptures/new',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./components/sculpture-form/sculpture-form.component').then(
-        (component) => component.SculptureFormComponent
+      import('./pages/add-sculpture/add-sculpture.component').then(
+        (component) => component.AddSculptureComponent
       ),
   },
 ];
