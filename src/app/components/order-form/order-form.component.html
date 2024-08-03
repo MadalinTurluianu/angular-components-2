@@ -1,1 +1,69 @@
-<p>order-form works!</p>
+<form class="form" [formGroup]="formData" (submit)="submitHandler()">
+  <mat-form-field>
+    <mat-label>Buyer name</mat-label>
+    <input matInput type="text" formControlName="buyerName" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Buyer delivery address</mat-label>
+    <input
+      matInput
+      type="text"
+      name="buyer-delivery-address"
+      formControlName="buyerDeliveryAddress"
+    />
+  </mat-form-field>
+
+  <div class="configured-sculpture-container">
+    <app-configured-sculpture
+      [materials]="materials"
+      [sculptures]="sculptures"
+      formControlName="configuredSculpture"
+    ></app-configured-sculpture>
+    <button mat-flat-button type="button" (click)="addConfiguredSculpture()">
+      Add Sculpture
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="configuredSculptures">
+    <ng-container [matColumnDef]="tableColumns[0]">
+      <th mat-header-cell *matHeaderCellDef>{{ tableColumns[0] }}</th>
+      <td mat-cell *matCellDef="let element; let index">{{ index }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="tableColumns[1]">
+      <th mat-header-cell *matHeaderCellDef>{{ tableColumns[1] }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.sculpture.name }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="tableColumns[2]">
+      <th mat-header-cell *matHeaderCellDef>{{ tableColumns[2] }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.material }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="tableColumns[3]">
+      <th mat-header-cell *matHeaderCellDef>{{ tableColumns[3] }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{
+          element.sculpture.baseWeight *
+            materialsInfo[element.material].weightMultiplier
+        }}
+      </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="tableColumns[4]">
+      <th mat-header-cell *matHeaderCellDef>{{ tableColumns[4] }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{
+          element.sculpture.basePrice *
+            materialsInfo[element.material].priceMultiplier
+        }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+  </table>
+
+  <button mat-flat-button type="submit">Complete order</button>
+</form>

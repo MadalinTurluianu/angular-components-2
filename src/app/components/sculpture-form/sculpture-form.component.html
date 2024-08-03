@@ -1,1 +1,30 @@
-<p>sculpture-form works!</p>
+<form class="form" (ngSubmit)="submitHandler()">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput type="text" name="name" [(ngModel)]="name" minlength="1" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Base Price (€)</mat-label>
+    <input
+      matInput
+      type="number"
+      name="price"
+      [(ngModel)]="basePrice"
+      min="0"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Base weight (kg)</mat-label>
+    <input
+      matInput
+      type="number"
+      name="weight"
+      [(ngModel)]="baseWeight"
+      min="0"
+    />
+  </mat-form-field>
+
+  <button mat-flat-button type="submit">Add sculpture</button>
+</form>

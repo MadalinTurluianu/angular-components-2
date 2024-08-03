@@ -2,12 +2,28 @@ import { Routes } from '@angular/router';
 import { OrdersComponent } from './pages';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/orders', pathMatch: 'full' },
-
   {
     path: 'orders',
     pathMatch: 'full',
     component: OrdersComponent,
+  },
+
+  {
+    path: 'orders/new',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./pages/add-order/add-order.component').then(
+        (component) => component.AddOrderComponent
+      ),
+  },
+
+  {
+    path: 'sculptures/new',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./pages/add-sculpture/add-sculpture.component').then(
+        (component) => component.AddSculptureComponent
+      ),
   },
 
   {
@@ -28,21 +44,5 @@ export const routes: Routes = [
       ),
   },
 
-  {
-    path: 'orders/new',
-    pathMatch: 'full',
-    loadComponent: () =>
-      import('./pages/add-order/add-order.component').then(
-        (component) => component.AddOrderComponent
-      ),
-  },
-
-  {
-    path: 'sculptures/new',
-    pathMatch: 'full',
-    loadComponent: () =>
-      import('./pages/add-sculpture/add-sculpture.component').then(
-        (component) => component.AddSculptureComponent
-      ),
-  },
+  { path: '**', redirectTo: '/orders', pathMatch: 'full' },
 ];
