@@ -47,6 +47,7 @@ export class OrderFormComponent {
   @Input({ required: true }) materials!: Material[];
   @Input({ required: true }) materialsInfo!: MaterialsInfo;
   @Output() order = new EventEmitter<Order>();
+  @Output() cancel = new EventEmitter();
 
   configuredSculptures: ConfiguredSculpture[] = [];
 
@@ -72,6 +73,10 @@ export class OrderFormComponent {
 
   removeConfiguredSculpture(index: number) {
     this.configuredSculptures.splice(index, 1);
+  }
+
+  cancelHandler() {
+    this.cancel.emit();
   }
 
   submitHandler() {

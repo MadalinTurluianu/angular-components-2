@@ -1,5 +1,4 @@
-<app-layout
-  ><app-sculpture-form
-    (sculpture)="onSculptureCreated($event)"
-  ></app-sculpture-form>
-</app-layout>
+<app-sculpture-form
+  (sculpture)="onSculptureCreated($event)"
+  (cancel)="cancelHandler()"
+></app-sculpture-form>

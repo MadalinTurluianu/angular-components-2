@@ -1,5 +1,4 @@
-<p>sculptures-page works!</p>
-<app-layout>
+<app-base-layout>
   <main class="sculpture-list">
     <app-sculpture
       *ngFor="let sculpture of sculptures"
@@ -7,4 +6,4 @@
       (selectSculpture)="sculptureSelectedHandler($event)"
     ></app-sculpture>
   </main>
-</app-layout>
+</app-base-layout>

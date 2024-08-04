@@ -1,6 +1,10 @@
-<app-layout>
+<app-item-details-layout
+  [backRoute]="backRoute"
+  [previousItemRoute]="previousSculptureRoute"
+  [nextItemRoute]="nextSculptureRoute"
+>
   <app-sculpture-details
     *ngIf="sculpture != null"
     [sculpture]="sculpture!"
   ></app-sculpture-details>
-</app-layout>
+</app-item-details-layout>

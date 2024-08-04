@@ -18,6 +18,11 @@ export class SculptureFormComponent {
   baseWeight: number = 0;
 
   @Output() sculpture = new EventEmitter<Sculpture>();
+  @Output() cancel = new EventEmitter();
+
+  cancelHandler() {
+    this.cancel.emit();
+  }
 
   submitHandler() {
     return this.sculpture.emit({

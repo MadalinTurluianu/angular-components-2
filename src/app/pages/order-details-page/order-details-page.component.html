@@ -1,7 +1,10 @@
-<app-layout>
-  <app-order-details
+<app-item-details-layout
+  [backRoute]="backRoute"
+  [previousItemRoute]="previousOrderRoute"
+  [nextItemRoute]="nextOrderRoute"
+  ><app-order-details
     *ngIf="order != null"
-    [order]="order!"
+    [order]="order"
     [materialsInfo]="materialsInfo"
   ></app-order-details>
-</app-layout>
+</app-item-details-layout>

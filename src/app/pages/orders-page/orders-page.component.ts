@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { LayoutComponent } from '../layout/layout.component';
 import { OrderComponent } from '../../components';
 import { Order } from '../../types';
 import { OrdersService } from '../../services';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { BaseLayoutComponent } from '../layouts';
 
 @Component({
   selector: 'app-orders-page',
   standalone: true,
-  imports: [LayoutComponent, OrderComponent, CommonModule],
+  imports: [BaseLayoutComponent, OrderComponent, CommonModule],
   templateUrl: './orders-page.component.html',
   styleUrl: './orders-page.component.scss',
 })

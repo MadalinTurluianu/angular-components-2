@@ -1,29 +1,30 @@
 import { Routes } from '@angular/router';
 import { OrdersPageComponent } from './pages';
+import { AppRoutes } from './types';
 
 export const routes: Routes = [
   {
-    path: 'orders',
+    path: AppRoutes.Orders,
     pathMatch: 'full',
     component: OrdersPageComponent,
   },
 
   {
-    path: 'sculptures',
+    path: AppRoutes.Sculptures,
     pathMatch: 'full',
     loadComponent: () =>
       import('./pages').then((component) => component.SculpturesPageComponent),
   },
 
   {
-    path: 'orders/new',
+    path: AppRoutes.AddOrder,
     pathMatch: 'full',
     loadComponent: () =>
       import('./pages').then((component) => component.AddOrderPageComponent),
   },
 
   {
-    path: 'sculptures/new',
+    path: AppRoutes.AddSculpture,
     pathMatch: 'full',
     loadComponent: () =>
       import('./pages').then(
@@ -32,7 +33,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'orders/:id',
+    path: AppRoutes.Orders + '/:id',
     pathMatch: 'full',
     loadComponent: () =>
       import('./pages').then(
@@ -41,7 +42,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'sculptures/:id',
+    path: AppRoutes.Sculptures + '/:id',
     pathMatch: 'full',
     loadComponent: () =>
       import('./pages').then(
@@ -49,5 +50,5 @@ export const routes: Routes = [
       ),
   },
 
-  { path: '**', redirectTo: '/orders', pathMatch: 'full' },
+  { path: '**', redirectTo: AppRoutes.Orders, pathMatch: 'full' },
 ];

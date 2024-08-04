@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { LayoutComponent } from '../layout/layout.component';
 import { SculptureComponent } from '../../components/sculpture/sculpture.component';
 import { SculpturesService } from '../../services';
 import { Router } from '@angular/router';
 import { Sculpture } from '../../types';
 import { CommonModule } from '@angular/common';
+import { BaseLayoutComponent } from '../layouts';
 
 @Component({
   selector: 'app-sculptures-page',
   standalone: true,
-  imports: [LayoutComponent, SculptureComponent, CommonModule],
+  imports: [BaseLayoutComponent, SculptureComponent, CommonModule],
   templateUrl: './sculptures-page.component.html',
   styleUrl: './sculptures-page.component.scss',
 })

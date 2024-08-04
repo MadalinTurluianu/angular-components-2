@@ -25,7 +25,10 @@
     </button>
   </div>
 
-  <div class="configured-sculpture" *ngFor="let item of configuredSculptures, let index = index">
+  <div
+    class="configured-sculpture"
+    *ngFor="let item of configuredSculptures; let index = index"
+  >
     <span>{{ item.sculpture.name }}</span>
     <span>{{ item.material }}</span>
     <span>{{
@@ -37,5 +40,9 @@
     <button (click)="removeConfiguredSculpture(index)">delete</button>
   </div>
 
-  <button mat-flat-button type="submit">Complete order</button>
+  <div class="actions">
+    <button mat-flat-button type="button" (click)="cancelHandler()">
+      Cancel</button
+    ><button mat-flat-button type="submit">Complete order</button>
+  </div>
 </form>

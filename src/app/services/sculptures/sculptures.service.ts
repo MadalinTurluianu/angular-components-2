@@ -15,7 +15,7 @@ export class SculpturesService {
     this.sculptures = sculptures;
   }
 
-  saveSculptures() {
+  saveSculptures(): void {
     localStorage.setItem('sculptures', JSON.stringify(this.sculptures));
   }
 
@@ -23,13 +23,13 @@ export class SculpturesService {
     return this.sculptures;
   }
 
-  addSculpture(sculpture: Sculpture) {
+  addSculpture(sculpture: Sculpture): Sculpture[] {
     this.sculptures.push(sculpture);
     this.saveSculptures();
     return this.sculptures;
   }
 
-  removeSculpture(id: string) {
+  removeSculpture(id: string): Sculpture[] {
     this.sculptures = this.sculptures.filter(
       (sculpture) => sculpture.id !== id
     );
@@ -37,8 +37,24 @@ export class SculpturesService {
     return this.sculptures;
   }
 
-  getSculpture(id: string) {
-    const sculpture = this.sculptures.find((sculpture) => sculpture.id === id);
-    return sculpture ?? null;
+  getSculpture(id: string): Sculpture | undefined {
+    return this.sculptures.find((sculpture) => sculpture.id === id);
+  }
+
+  getNextSculpture(id: string): Sculpture | undefined {
+    const index = this.sculptures.findIndex((sculpture) => sculpture.id === id);
+    if (index < 0) return;
+
+    const nextIndex = index + 1 >= this.sculptures.length ? 0 : index + 1;
+    return this.sculptures[nextIndex];
+  }
+
+  getPreviousSculpture(id: string): Sculpture | undefined {
+    const index = this.sculptures.findIndex((sculpture) => sculpture.id === id);
+    if (index < 0) return;
+
+    const previousIndex =
+      index - 1 < 0 ? this.sculptures.length - 1 : index - 1;
+    return this.sculptures[previousIndex];
   }
 }
