@@ -1,28 +1,33 @@
 import { Routes } from '@angular/router';
-import { OrdersComponent } from './pages';
+import { OrdersPageComponent } from './pages';
 
 export const routes: Routes = [
   {
     path: 'orders',
     pathMatch: 'full',
-    component: OrdersComponent,
+    component: OrdersPageComponent,
+  },
+
+  {
+    path: 'sculptures',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./pages').then((component) => component.SculpturesPageComponent),
   },
 
   {
     path: 'orders/new',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./pages/add-order/add-order.component').then(
-        (component) => component.AddOrderComponent
-      ),
+      import('./pages').then((component) => component.AddOrderPageComponent),
   },
 
   {
     path: 'sculptures/new',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./pages/add-sculpture/add-sculpture.component').then(
-        (component) => component.AddSculptureComponent
+      import('./pages').then(
+        (component) => component.AddSculpturePageComponent
       ),
   },
 
@@ -30,8 +35,8 @@ export const routes: Routes = [
     path: 'orders/:id',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./pages/order-details/order-details.component').then(
-        (component) => component.OrderDetailsComponent
+      import('./pages').then(
+        (component) => component.OrderDetailsPageComponent
       ),
   },
 
@@ -39,8 +44,8 @@ export const routes: Routes = [
     path: 'sculptures/:id',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./pages/sculpture-details/sculpture-details.component').then(
-        (component) => component.SculptureDetailsComponent
+      import('./pages').then(
+        (component) => component.SculpturesDetailsPageComponent
       ),
   },
 

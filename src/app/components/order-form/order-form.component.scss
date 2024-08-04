@@ -3,3 +3,9 @@
   display: flex;
   align-items: center;
 }
+
+.configured-sculpture {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  width: 100%;
+}

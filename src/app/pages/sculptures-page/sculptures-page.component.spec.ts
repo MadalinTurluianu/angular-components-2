@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddOrderComponent } from './add-order.component';
+import { SculpturesPageComponent } from './sculptures-page.component';
 
-describe('AddOrderComponent', () => {
-  let component: AddOrderComponent;
-  let fixture: ComponentFixture<AddOrderComponent>;
+describe('SculpturesPageComponent', () => {
+  let component: SculpturesPageComponent;
+  let fixture: ComponentFixture<SculpturesPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddOrderComponent]
+      imports: [SculpturesPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddOrderComponent);
+    fixture = TestBed.createComponent(SculpturesPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

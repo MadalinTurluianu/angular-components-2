@@ -1,0 +1,5 @@
+<app-layout>
+  <main class="order-list">
+    <app-order *ngFor="let order of orders" [order]="order" (selectOrder)="orderSelectedHandler($event)" ></app-order>
+  </main>
+</app-layout>

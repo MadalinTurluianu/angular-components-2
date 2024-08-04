@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { SculptureFormComponent } from '../../components';
 import { Sculpture } from '../../types';
 import { SculpturesService } from '../../services';
+import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
-  selector: 'app-add-sculpture',
+  selector: 'app-add-sculpture-page',
   standalone: true,
-  imports: [SculptureFormComponent],
-  templateUrl: './add-sculpture.component.html',
-  styleUrl: './add-sculpture.component.scss',
+  imports: [SculptureFormComponent, LayoutComponent],
+  templateUrl: './add-sculpture-page.component.html',
+  styleUrl: './add-sculpture-page.component.scss',
 })
-export class AddSculptureComponent {
+export class AddSculpturePageComponent {
   sculptureService: SculpturesService;
 
   constructor(sculptureService: SculpturesService) {

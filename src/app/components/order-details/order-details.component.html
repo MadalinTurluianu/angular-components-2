@@ -1,0 +1,30 @@
+<div class="order">
+  <p>Buyer name: {{ order.buyerName }}</p>
+  <p>Buyer delivery address: {{ order.buyerDeliveryAddress }}</p>
+  <p>Order total price {{ totalPrice }}€</p>
+  <p>Order total weight {{ totalWeight }}kg</p>
+
+  <div>
+    <div
+      *ngFor="let item of order.configuredSculptures"
+      class="configured-sculpture"
+    >
+      <p>Sculpture: {{ item.sculpture.name }}</p>
+      <p>Material: {{ item.material }}</p>
+      <p>
+        Price:
+        {{
+          item.sculpture.basePrice *
+            materialsInfo[item.material].priceMultiplier
+        }}€
+      </p>
+      <p>
+        Price:
+        {{
+          item.sculpture.baseWeight *
+            materialsInfo[item.material].weightMultiplier
+        }}kg
+      </p>
+    </div>
+  </div>
+</div>

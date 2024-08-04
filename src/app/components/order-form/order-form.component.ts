@@ -8,7 +8,7 @@ import {
 import {
   ConfiguredSculpture,
   Material,
-  MaterialInfo,
+  MaterialsInfo,
   Order,
   Sculpture,
 } from '../../types';
@@ -24,7 +24,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ConfiguredSculptureComponent } from '../configured-sculpture/configured-sculpture.component';
 import { MatTableModule } from '@angular/material/table';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-order-form',
@@ -46,41 +45,47 @@ import { Observable } from 'rxjs';
 export class OrderFormComponent {
   @Input({ required: true }) sculptures!: Sculpture[];
   @Input({ required: true }) materials!: Material[];
-  @Input({ required: true }) materialsInfo!: MaterialInfo;
+  @Input({ required: true }) materialsInfo!: MaterialsInfo;
   @Output() order = new EventEmitter<Order>();
 
-  configuredSculptures: Observable<ConfiguredSculpture[]> = new Observable<
-    ConfiguredSculpture[]
-  >();
-  tableColumns: string[] = [
-    'No',
-    'Sculpture',
-    'Material',
-    'Weight (kg)',
-    'Price (€)',
-  ];
+  configuredSculptures: ConfiguredSculpture[] = [];
 
   formData = new FormGroup({
     buyerName: new FormControl<string>(''),
     buyerDeliveryAddress: new FormControl<string>(''),
-    configuredSculpture: new FormControl<Partial<ConfiguredSculpture>>({}),
+    configuredSculpture: new FormControl<Partial<ConfiguredSculpture>>({
+      material: undefined,
+      sculpture: undefined,
+    }),
   });
 
   addConfiguredSculpture() {
     const configuredSculpture = this.formData.value.configuredSculpture;
-    console.log(configuredSculpture);
 
     if (configuredSculpture?.material && configuredSculpture?.sculpture) {
-      this.configuredSculptures.subscribe((configuredSculptures) => {
-        configuredSculptures.push({
-          material: configuredSculpture.material!,
-          sculpture: configuredSculpture.sculpture!,
-        });
+      this.configuredSculptures.push({
+        material: configuredSculpture.material,
+        sculpture: configuredSculpture.sculpture,
       });
-      this.formData.value.configuredSculpture = null;
-      console.log(this.configuredSculptures);
     }
   }
 
-  submitHandler() {}
+  removeConfiguredSculpture(index: number) {
+    this.configuredSculptures.splice(index, 1);
+  }
+
+  submitHandler() {
+    if (
+      this.formData.value.buyerName &&
+      this.formData.value.buyerDeliveryAddress &&
+      this.configuredSculptures.length > 0
+    ) {
+      this.order.emit({
+        id: crypto.randomUUID(),
+        buyerName: this.formData.value.buyerName,
+        buyerDeliveryAddress: this.formData.value.buyerDeliveryAddress,
+        configuredSculptures: this.configuredSculptures,
+      });
+    }
+  }
 }

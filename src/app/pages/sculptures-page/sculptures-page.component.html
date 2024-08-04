@@ -1,0 +1,10 @@
+<p>sculptures-page works!</p>
+<app-layout>
+  <main class="sculpture-list">
+    <app-sculpture
+      *ngFor="let sculpture of sculptures"
+      [sculpture]="sculpture"
+      (selectSculpture)="sculptureSelectedHandler($event)"
+    ></app-sculpture>
+  </main>
+</app-layout>

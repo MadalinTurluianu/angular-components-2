@@ -4,7 +4,7 @@
     <mat-label>Sculpture</mat-label>
     <mat-select [(value)]="sculpture" (valueChange)="changeHandler()">
       @for (sculpture of sculptures; track sculpture) {
-      <mat-option [value]="sculpture.name">{{ sculpture.name }}</mat-option>
+      <mat-option [value]="sculpture">{{ sculpture.name }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
