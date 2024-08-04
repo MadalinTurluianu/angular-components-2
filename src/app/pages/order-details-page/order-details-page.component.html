@@ -1,9 +1,10 @@
 <app-item-details-layout
   [backRoute]="backRoute"
-  [previousItemRoute]="previousOrderRoute"
-  [nextItemRoute]="nextOrderRoute"
-  ><app-order-details
-    *ngIf="order != null"
+  [previousItemRoute]="previousOrderRoute$ | async"
+  [nextItemRoute]="nextOrderRoute$ | async"
+>
+  <app-order-details
+    *ngIf="order$ | async as order"
     [order]="order"
     [materialsInfo]="materialsInfo"
   ></app-order-details>

@@ -11,6 +11,6 @@ import { RouterLink } from '@angular/router';
 })
 export class ItemDetailsLayoutComponent {
   @Input({ required: true }) backRoute!: string;
-  @Input({ required: true }) previousItemRoute: string | undefined;
-  @Input({ required: true }) nextItemRoute: string | undefined;
+  @Input({ required: true }) previousItemRoute: string | undefined | null;
+  @Input({ required: true }) nextItemRoute: string | undefined | null;
 }

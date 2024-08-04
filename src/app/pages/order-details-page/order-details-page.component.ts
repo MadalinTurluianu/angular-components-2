@@ -1,52 +1,68 @@
-import { Component } from '@angular/core';
-import { OrderDetailsComponent } from '../../components/order-details/order-details.component';
-import { AppRoutes, MaterialsInfo, Order } from '../../types';
-import { MaterialsService, OrdersService } from '../../services';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { OrderDetailsComponent } from '../../components';
 import { ItemDetailsLayoutComponent } from '../layouts';
-import { of, switchMap } from 'rxjs';
+import { MaterialsService, OrdersService } from '../../services';
+import { MaterialsInfo, Order, AppRoutes } from '../../types';
 
 @Component({
   selector: 'app-order-details-page',
   standalone: true,
   imports: [OrderDetailsComponent, CommonModule, ItemDetailsLayoutComponent],
   templateUrl: './order-details-page.component.html',
-  styleUrl: './order-details-page.component.scss',
+  styleUrls: ['./order-details-page.component.scss'],
 })
-export class OrderDetailsPageComponent {
+export class OrderDetailsPageComponent implements OnInit {
   materialsInfo!: MaterialsInfo;
-  order: Order | undefined;
-  nextOrderRoute: string | undefined;
-  previousOrderRoute: string | undefined;
+  order$!: Observable<Order | undefined>;
+  nextOrderRoute$!: Observable<string | undefined>;
+  previousOrderRoute$!: Observable<string | undefined>;
   backRoute = AppRoutes.Orders;
 
   constructor(
     private materialService: MaterialsService,
     private ordersService: OrdersService,
     private route: ActivatedRoute
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.materialsInfo = this.materialService.getMaterialsInfo();
 
-    
-     this.route.paramMap
-      .pipe(
-        switchMap(paramMap => {
-          const routeId = paramMap.get('id');
-          if (routeId == null) return of(null);
+    this.order$ = this.route.paramMap.pipe(
+      switchMap((paramMap) => {
+        const routeId = paramMap.get('id');
+        if (routeId == null) return of(undefined);
 
-          this.order = this.ordersService.getOrder(routeId);
-          if (this.order == null) return of(null);
+        const order = this.ordersService.getOrder(routeId);
+        return of(order);
+      })
+    );
 
-          const previousOrder = this.ordersService.getPreviousOrder(routeId);
-          this.previousOrderRoute = previousOrder ? `${AppRoutes.Orders}/${previousOrder.id}` : undefined;
+    this.previousOrderRoute$ = this.route.paramMap.pipe(
+      switchMap((paramMap) => {
+        const routeId = paramMap.get('id');
+        if (routeId == null) return of(undefined);
 
-          const nextOrder = this.ordersService.getNextOrder(routeId);
-          this.nextOrderRoute = nextOrder ? `${AppRoutes.Orders}/${nextOrder.id}` : undefined;
+        const previousOrder = this.ordersService.getPreviousOrder(routeId);
+        return of(
+          previousOrder ? `${AppRoutes.Orders}/${previousOrder.id}` : undefined
+        );
+      })
+    );
 
-          return of(this.order);
-        })
-      )
-      .subscribe();
+    this.nextOrderRoute$ = this.route.paramMap.pipe(
+      switchMap((paramMap) => {
+        const routeId = paramMap.get('id');
+        if (routeId == null) return of(undefined);
+
+        const nextOrder = this.ordersService.getNextOrder(routeId);
+        return of(
+          nextOrder ? `${AppRoutes.Orders}/${nextOrder.id}` : undefined
+        );
+      })
+    );
   }
 }
