@@ -1,11 +1,11 @@
-<header class="navigation">
-  <nav>
+<div class="layout">
+  <app-navigation>
     <a [routerLink]="'/' + backRoute">Back</a>
     <div class="prev-next">
       <a *ngIf="previousItemRoute" [routerLink]="'/' + previousItemRoute"
-        >Previous</a
-      ><a *ngIf="nextItemRoute" [routerLink]="'/' + nextItemRoute">Next</a>
+        >&#60; Previous</a
+      ><a *ngIf="nextItemRoute" [routerLink]="'/' + nextItemRoute">Next ></a>
     </div>
-  </nav>
-</header>
-<main><ng-content></ng-content></main>
+  </app-navigation>
+  <main class="page-content"><ng-content></ng-content></main>
+</div>

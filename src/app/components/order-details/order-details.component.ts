@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MaterialsInfo, Order } from '../../types';
 import { CommonModule } from '@angular/common';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-order-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CardComponent],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.scss',
 })

@@ -1,0 +1,9 @@
+@import "../../../styles.scss";
+
+.card {
+  border: 1px solid $tertiary-color;
+  padding: 0.5rem;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+}

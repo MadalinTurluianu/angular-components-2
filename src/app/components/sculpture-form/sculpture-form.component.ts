@@ -8,14 +8,19 @@ import { FormActionsComponent } from '../form-actions/form-actions.component';
 @Component({
   selector: 'app-sculpture-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, FormActionsComponent],
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormActionsComponent,
+  ],
   templateUrl: './sculpture-form.component.html',
   styleUrl: './sculpture-form.component.scss',
 })
 export class SculptureFormComponent {
   name: string = '';
-  basePrice: number = 0;
-  baseWeight: number = 0;
+  basePrice: number | undefined;
+  baseWeight: number | undefined;
 
   @Output() sculpture = new EventEmitter<Sculpture>();
   @Output() cancel = new EventEmitter();
@@ -25,6 +30,8 @@ export class SculptureFormComponent {
   }
 
   submitHandler() {
+    if (!this.basePrice || !this.baseWeight) return;
+
     return this.sculpture.emit({
       id: crypto.randomUUID(),
       name: this.name,

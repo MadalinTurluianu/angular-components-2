@@ -1,0 +1,9 @@
+<div class="card">
+  <ng-content></ng-content>
+  <button *ngIf="actionName" mat-button (click)="actionClickHandler()">
+    {{ actionName }}</button
+  ><app-delete-button
+    *ngIf="withDelete"
+    (click)="deleteClickHandler()"
+  ></app-delete-button>
+</div>

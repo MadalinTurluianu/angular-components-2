@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AppRoutes } from '../../../types';
+import { NavigationComponent } from '../navigation/navigation.component';
 
 @Component({
   selector: 'app-base-layout',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, NavigationComponent],
   templateUrl: './base-layout.component.html',
   styleUrl: './base-layout.component.scss',
 })

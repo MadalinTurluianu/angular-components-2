@@ -10,9 +10,7 @@
     <span>{{ item.material }}</span>
     <span>{{ configuredSculptures[index].weight.toFixed(2) }}kg</span>
     <span>{{ configuredSculptures[index].price.toFixed(2) }}€</span>
-    <button mat-icon-button type="button" (click)="deleteHandler(index)">
-      <mat-icon class="icon" fontIcon="close"></mat-icon>
-    </button>
+    <app-delete-button (click)="deleteHandler(index)"></app-delete-button>
   </div>
   <div class="bold">
     <span class="total">Total</span>

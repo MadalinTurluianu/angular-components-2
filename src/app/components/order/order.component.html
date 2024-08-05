@@ -1,5 +1,11 @@
-<div>
-  <span>{{ order.buyerName }} - {{ order.buyerDeliveryAddress }}</span>
-  <button (click)="orderDetailsClickHandler()" class="order">Check order details</button>
-  <button (click)="deleteOrderClickHandler()" class="cancel">Delete order</button>
-</div>
+<app-card
+  class="order"
+  actionName="See details"
+  (actionClick)="orderDetailsClickHandler()"
+  (deleteClick)="deleteOrderClickHandler()"
+  [withDelete]="true"
+>
+  <span class="title"
+    >{{ order.buyerName }} - {{ order.buyerDeliveryAddress }}</span
+  >
+</app-card>

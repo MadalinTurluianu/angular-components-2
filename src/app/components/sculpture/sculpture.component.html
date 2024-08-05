@@ -1,7 +1,8 @@
-<div>
+<app-card
+  actionName="See details"
+  (actionClick)="sculptureDetailsClickHandler()"
+  (deleteClick)="deleteSculptureClickHandler()"
+  [withDelete]="true"
+>
   <span>{{ sculpture.name }}</span>
-  <button (click)="sculptureDetailsClickHandler()">
-    Check sculpture details
-  </button>
-  <button (click)="deleteSculptureClickHandler()">Delete sculpture</button>
-</div>
+</app-card>

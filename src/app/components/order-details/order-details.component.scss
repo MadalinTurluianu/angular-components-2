@@ -1,3 +1,15 @@
-.configured-sculpture {
-  border: 1px solid currentColor;
+.order {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.configured-sculptures {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+p {
+  margin-bottom: 0.5rem;
 }

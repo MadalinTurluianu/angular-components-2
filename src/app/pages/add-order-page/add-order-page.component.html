@@ -1,7 +1,9 @@
-<app-order-form
-  [sculptures]="sculptures"
-  [materials]="materials"
-  [materialsInfo]="materialsInfo"
-  (cancel)="cancelHandler()"
-  (order)="onCreateOrder($event)"
-></app-order-form>
+<main class="page-content">
+  <app-order-form
+    [sculptures]="sculptures"
+    [materials]="materials"
+    [materialsInfo]="materialsInfo"
+    (cancel)="cancelHandler()"
+    (order)="onCreateOrder($event)"
+  ></app-order-form>
+</main>
