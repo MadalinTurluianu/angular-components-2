@@ -1,3 +1,8 @@
+$primary-color: #2e2f32;
+$secondary-color: #ffffff;
+$accent-color: #1469c0;
+$error-color: #ff5b50;
+
 html,
 body {
   height: 100%;
@@ -5,20 +10,15 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: $primary-color;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  gap: 0.5rem;
+  padding: 1.5rem;
   max-width: 40rem;
-  border: 1px solid currentColor;
   margin: auto;
   border-radius: 5px;
-}
-
-.fieldset {
-  all: unset;
-  display: flex;
-  gap: 1rem;
 }

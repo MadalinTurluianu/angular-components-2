@@ -29,7 +29,7 @@ export class SculpturesService {
     return this.sculptures;
   }
 
-  removeSculpture(id: string): Sculpture[] {
+  deleteSculpture(id: string): Sculpture[] {
     this.sculptures = this.sculptures.filter(
       (sculpture) => sculpture.id !== id
     );

@@ -15,14 +15,19 @@ import { BaseLayoutComponent } from '../layouts';
 })
 export class SculpturesPageComponent {
   sculptures: Sculpture[] = [];
-  router: Router;
 
-  constructor(sculpturesService: SculpturesService, router: Router) {
-    this.sculptures = sculpturesService.getAllSculptures();
-    this.router = router;
+  constructor(
+    private sculpturesService: SculpturesService,
+    private router: Router
+  ) {
+    this.sculptures = this.sculpturesService.getAllSculptures();
   }
 
-  sculptureSelectedHandler(order: Sculpture) {
-    this.router.navigate(['sculptures', order.id]);
+  sculptureSelectedHandler(sculpture: Sculpture) {
+    this.router.navigate(['sculptures', sculpture.id]);
+  }
+
+  sculptureDeletedHandler(sculpture: Sculpture) {
+    this.sculptures = this.sculpturesService.deleteSculpture(sculpture.id);
   }
 }

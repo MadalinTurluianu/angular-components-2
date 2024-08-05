@@ -26,5 +26,6 @@ export class AddSculpturePageComponent {
 
   onSculptureCreated(sculpture: Sculpture) {
     this.sculptureService.addSculpture(sculpture);
+    this.router.navigate([AppRoutes.Sculptures]);
   }
 }

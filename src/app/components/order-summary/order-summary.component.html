@@ -1,0 +1,22 @@
+<div class="configured-sculpture" *ngIf="configuredSculptures.length > 0">
+  <div class="bold">
+    <span>Sculpture</span>
+    <span>Material</span>
+    <span>Weight</span>
+    <span>Price</span>
+  </div>
+  <div *ngFor="let item of configuredSculptures; let index = index">
+    <span>{{ item.sculpture.name }}</span>
+    <span>{{ item.material }}</span>
+    <span>{{ configuredSculptures[index].weight.toFixed(2) }}kg</span>
+    <span>{{ configuredSculptures[index].price.toFixed(2) }}€</span>
+    <button mat-icon-button type="button" (click)="deleteHandler(index)">
+      <mat-icon class="icon" fontIcon="close"></mat-icon>
+    </button>
+  </div>
+  <div class="bold">
+    <span class="total">Total</span>
+    <span>{{ totalWeight.toFixed(2) }}kg</span>
+    <span>{{ totalPrice.toFixed(2) }}€</span>
+  </div>
+</div>

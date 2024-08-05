@@ -1,3 +1,7 @@
-<button (click)="clickHandler()" class="sculpture">
+<div>
   <span>{{ sculpture.name }}</span>
-</button>
+  <button (click)="sculptureDetailsClickHandler()">
+    Check sculpture details
+  </button>
+  <button (click)="deleteSculptureClickHandler()">Delete sculpture</button>
+</div>

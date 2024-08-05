@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import {
   ConfiguredSculpture,
+  ConfiguredSculptureDetails,
   Material,
   MaterialsInfo,
   Order,
@@ -23,7 +24,13 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ConfiguredSculptureComponent } from '../configured-sculpture/configured-sculpture.component';
-import { MatTableModule } from '@angular/material/table';
+import { MatIcon } from '@angular/material/icon';
+import { FormActionsComponent } from '../form-actions/form-actions.component';
+import {
+  calculateConfiguredSculpturePrice,
+  calculateConfiguredSculptureWeight,
+} from '../../helpers';
+import { OrderSummaryComponent } from '../order-summary/order-summary.component';
 
 @Component({
   selector: 'app-order-form',
@@ -36,7 +43,9 @@ import { MatTableModule } from '@angular/material/table';
     ReactiveFormsModule,
     FormsModule,
     ConfiguredSculptureComponent,
-    MatTableModule,
+    MatIcon,
+    FormActionsComponent,
+    OrderSummaryComponent,
   ],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.scss',
@@ -49,30 +58,54 @@ export class OrderFormComponent {
   @Output() order = new EventEmitter<Order>();
   @Output() cancel = new EventEmitter();
 
-  configuredSculptures: ConfiguredSculpture[] = [];
+  configuredSculptures: ConfiguredSculptureDetails[] = [];
+  totalWeight: number = 0;
+  totalPrice: number = 0;
 
   formData = new FormGroup({
     buyerName: new FormControl<string>(''),
     buyerDeliveryAddress: new FormControl<string>(''),
-    configuredSculpture: new FormControl<Partial<ConfiguredSculpture>>({
-      material: undefined,
-      sculpture: undefined,
-    }),
+    configuredSculpture: new FormControl<ConfiguredSculpture | null>(null),
   });
+
+  resetWeightAndPrice() {
+    this.totalWeight = this.configuredSculptures.reduce(
+      (total, { weight }) => total + weight,
+      0
+    );
+
+    this.totalPrice = this.configuredSculptures.reduce(
+      (total, { price }) => total + price,
+      0
+    );
+  }
 
   addConfiguredSculpture() {
     const configuredSculpture = this.formData.value.configuredSculpture;
 
-    if (configuredSculpture?.material && configuredSculpture?.sculpture) {
-      this.configuredSculptures.push({
-        material: configuredSculpture.material,
-        sculpture: configuredSculpture.sculpture,
-      });
+    if (!configuredSculpture?.material || !configuredSculpture?.sculpture) {
+      return;
     }
+
+    this.configuredSculptures.push({
+      material: configuredSculpture.material,
+      sculpture: configuredSculpture.sculpture,
+      price: calculateConfiguredSculpturePrice(
+        configuredSculpture,
+        this.materialsInfo
+      ),
+      weight: calculateConfiguredSculptureWeight(
+        configuredSculpture,
+        this.materialsInfo
+      ),
+    });
+
+    this.resetWeightAndPrice();
   }
 
   removeConfiguredSculpture(index: number) {
     this.configuredSculptures.splice(index, 1);
+    this.resetWeightAndPrice();
   }
 
   cancelHandler() {
@@ -90,6 +123,8 @@ export class OrderFormComponent {
         buyerName: this.formData.value.buyerName,
         buyerDeliveryAddress: this.formData.value.buyerDeliveryAddress,
         configuredSculptures: this.configuredSculptures,
+        totalWeight: this.totalWeight,
+        totalPrice: this.totalPrice,
       });
     }
   }

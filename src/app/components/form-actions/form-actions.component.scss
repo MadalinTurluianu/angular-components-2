@@ -1,0 +1,13 @@
+@import "../../../styles.scss";
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 2rem;
+  width: 100%;
+
+  .cancel {
+    color: $error-color;
+    border-color: $error-color;
+  }
+}

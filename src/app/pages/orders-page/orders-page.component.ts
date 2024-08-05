@@ -15,14 +15,16 @@ import { BaseLayoutComponent } from '../layouts';
 })
 export class OrdersPageComponent {
   orders: Order[] = [];
-  router: Router;
 
-  constructor(ordersService: OrdersService, router: Router) {
-    this.orders = ordersService.getAllOrders();
-    this.router = router;
+  constructor(private ordersService: OrdersService, private router: Router) {
+    this.orders = this.ordersService.getAllOrders();
   }
 
   orderSelectedHandler(order: Order) {
     this.router.navigate(['orders', order.id]);
+  }
+
+  orderDeletedHandler(order: Order) {
+    this.orders = this.ordersService.deleteOrder(order.id);
   }
 }

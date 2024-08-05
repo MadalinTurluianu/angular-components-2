@@ -27,10 +27,10 @@ export class OrdersService {
     return this.orders;
   }
 
-  removeOrder(id: string): Order[] {
-    const filteredOrders = this.orders.filter((order) => order.id !== id);
+  deleteOrder(id: string): Order[] {
+    this.orders = this.orders.filter((order) => order.id !== id);
     this.saveOrders();
-    return filteredOrders;
+    return this.orders;
   }
 
   getOrder(id: string): Order | undefined {

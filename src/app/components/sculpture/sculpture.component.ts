@@ -11,9 +11,14 @@ import { CommonModule } from '@angular/common';
 })
 export class SculptureComponent {
   @Input({ required: true }) sculpture!: Sculpture;
-  @Output() selectSculpture = new EventEmitter<Sculpture>();
+  @Output() seeSculptureDetails = new EventEmitter<Sculpture>();
+  @Output() deleteSculpture = new EventEmitter<Sculpture>();
 
-  clickHandler() {
-    this.selectSculpture.emit(this.sculpture);
+  sculptureDetailsClickHandler() {
+    this.seeSculptureDetails.emit(this.sculpture);
+  }
+
+  deleteSculptureClickHandler() {
+    this.deleteSculpture.emit(this.sculpture);
   }
 }

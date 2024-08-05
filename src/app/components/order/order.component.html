@@ -1,3 +1,5 @@
-<button (click)="clickHandler()" class="order">
+<div>
   <span>{{ order.buyerName }} - {{ order.buyerDeliveryAddress }}</span>
-</button>
+  <button (click)="orderDetailsClickHandler()" class="order">Check order details</button>
+  <button (click)="deleteOrderClickHandler()" class="cancel">Delete order</button>
+</div>

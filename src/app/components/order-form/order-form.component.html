@@ -1,4 +1,6 @@
 <form class="form" [formGroup]="formData" (submit)="submitHandler()">
+  <h2>Create an order</h2>
+
   <mat-form-field>
     <mat-label>Buyer name</mat-label>
     <input matInput type="text" formControlName="buyerName" />
@@ -20,29 +22,17 @@
       [sculptures]="sculptures"
       formControlName="configuredSculpture"
     ></app-configured-sculpture>
-    <button mat-flat-button type="button" (click)="addConfiguredSculpture()">
-      Add Sculpture
+    <button mat-icon-button type="button" (click)="addConfiguredSculpture()">
+      <mat-icon>add</mat-icon>
     </button>
   </div>
 
-  <div
-    class="configured-sculpture"
-    *ngFor="let item of configuredSculptures; let index = index"
-  >
-    <span>{{ item.sculpture.name }}</span>
-    <span>{{ item.material }}</span>
-    <span>{{
-      item.sculpture.baseWeight * materialsInfo[item.material].weightMultiplier
-    }}</span>
-    <span>{{
-      item.sculpture.basePrice * materialsInfo[item.material].priceMultiplier
-    }}</span>
-    <button (click)="removeConfiguredSculpture(index)">delete</button>
-  </div>
+  <app-order-summary
+    [configuredSculptures]="configuredSculptures"
+    [totalPrice]="totalPrice"
+    [totalWeight]="totalWeight"
+    (remove)="removeConfiguredSculpture($event)"
+  ></app-order-summary>
 
-  <div class="actions">
-    <button mat-flat-button type="button" (click)="cancelHandler()">
-      Cancel</button
-    ><button mat-flat-button type="submit">Complete order</button>
-  </div>
+  <app-form-actions (cancel)="cancelHandler()"></app-form-actions>
 </form>

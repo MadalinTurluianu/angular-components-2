@@ -5,3 +5,8 @@ export type ConfiguredSculpture = {
   sculpture: Sculpture;
   material: Material;
 };
+
+export type ConfiguredSculptureDetails = ConfiguredSculpture & {
+  price: number;
+  weight: number;
+};

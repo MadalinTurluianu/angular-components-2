@@ -3,7 +3,8 @@
     <app-sculpture
       *ngFor="let sculpture of sculptures"
       [sculpture]="sculpture"
-      (selectSculpture)="sculptureSelectedHandler($event)"
+      (seeSculptureDetails)="sculptureSelectedHandler($event)"
+      (deleteSculpture)="sculptureDeletedHandler($event)"
     ></app-sculpture>
   </main>
 </app-base-layout>

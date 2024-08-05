@@ -26,9 +26,5 @@
     />
   </mat-form-field>
 
-  <div class="actions">
-    <button mat-flat-button type="button" (click)="cancelHandler()">
-      Cancel</button
-    ><button mat-flat-button type="submit">Complete order</button>
-  </div>
+  <app-form-actions (cancel)="cancelHandler()"></app-form-actions>
 </form>

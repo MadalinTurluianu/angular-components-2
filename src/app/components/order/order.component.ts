@@ -11,9 +11,14 @@ import { CommonModule } from '@angular/common';
 })
 export class OrderComponent {
   @Input({ required: true }) order!: Order;
-  @Output() selectOrder = new EventEmitter<Order>();
+  @Output() seeOrderDetails = new EventEmitter<Order>();
+  @Output() deleteOrder = new EventEmitter<Order>();
 
-  clickHandler() {
-    this.selectOrder.emit(this.order);
+  orderDetailsClickHandler() {
+    this.seeOrderDetails.emit(this.order);
+  }
+
+  deleteOrderClickHandler() {
+    this.deleteOrder.emit(this.order);
   }
 }
