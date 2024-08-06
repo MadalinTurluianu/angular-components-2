@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Order } from '../../types';
+import { modelValidators } from '../../helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,8 @@ export class OrdersService {
 
   constructor() {
     const savedOrders = localStorage.getItem('orders');
-    const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
+    let orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
+    orders = orders.filter(modelValidators.order);
     this.orders = orders;
   }
 
@@ -21,8 +23,15 @@ export class OrdersService {
     return this.orders;
   }
 
-  addOrder(order: Order): Order[] {
-    this.orders.push(order);
+  upsertOrder(order: Order): Order[] {
+    const orderIndex = this.orders.findIndex(({ id }) => id === order.id);
+
+    if (orderIndex >= 0) {
+      this.orders[orderIndex] = order;
+    } else {
+      this.orders.push(order);
+    }
+
     this.saveOrders();
     return this.orders;
   }

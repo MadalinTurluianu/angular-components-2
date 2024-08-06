@@ -3,9 +3,20 @@
   [previousItemRoute]="previousOrderRoute$ | async"
   [nextItemRoute]="nextOrderRoute$ | async"
 >
-  <app-order-details
-    *ngIf="order$ | async as order"
-    [order]="order"
+  <app-redirect-warning
+    *ngIf="!dataSaved && warningOpen"
+    (cancel)="cancelRedirect()"
+    (confirm)="confirmRedirect()"
+  ></app-redirect-warning>
+
+  <app-order-form
+    *ngIf="order$ | async"
+    [order]="order$ | async"
+    [sculptures]="sculptures"
+    [materials]="materials"
     [materialsInfo]="materialsInfo"
-  ></app-order-details>
+    (cancel)="cancel()"
+    (submit)="createOrder($event)"
+    (dirty)="setFormDirty($event)"
+  ></app-order-form>
 </app-item-details-layout>

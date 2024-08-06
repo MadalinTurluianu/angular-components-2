@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { OrdersPageComponent } from './pages';
 import { AppRoutes } from './types';
+import { CanDeactivateGuard } from './services';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,7 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () =>
       import('./pages').then((component) => component.AddOrderPageComponent),
+    canDeactivate: [CanDeactivateGuard],
   },
 
   {
@@ -30,6 +32,7 @@ export const routes: Routes = [
       import('./pages').then(
         (component) => component.AddSculpturePageComponent
       ),
+    canDeactivate: [CanDeactivateGuard],
   },
 
   {
@@ -39,6 +42,7 @@ export const routes: Routes = [
       import('./pages').then(
         (component) => component.OrderDetailsPageComponent
       ),
+    canDeactivate: [CanDeactivateGuard],
   },
 
   {
@@ -48,6 +52,7 @@ export const routes: Routes = [
       import('./pages').then(
         (component) => component.SculpturesDetailsPageComponent
       ),
+    canDeactivate: [CanDeactivateGuard],
   },
 
   { path: '**', redirectTo: AppRoutes.Orders, pathMatch: 'full' },

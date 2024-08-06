@@ -1,5 +1,5 @@
 <form class="form" [formGroup]="formData" (ngSubmit)="submitHandler()">
-  <h2>Create an order</h2>
+  <h2>{{order?.id ? 'Update order' : 'Create an order'}}</h2>
 
   <mat-form-field appearance="outline">
     <mat-label>Buyer name</mat-label>

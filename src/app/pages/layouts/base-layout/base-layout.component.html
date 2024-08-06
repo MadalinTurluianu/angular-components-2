@@ -1,11 +1,24 @@
 <div class="layout">
   <app-navigation
-    ><a [routerLink]="'/' + ordersRoute" routerLinkActive="active">Orders</a
-    ><a [routerLink]="'/' + sculpturesRoute" routerLinkActive="active"
+    ><a
+      [routerLink]="'/' + ordersRoute"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Orders</a
+    ><a
+      [routerLink]="'/' + sculpturesRoute"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
       >Sculptures</a
-    ><a [routerLink]="'/' + addOrderRoute" routerLinkActive="active"
+    ><a
+      [routerLink]="'/' + addOrderRoute"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
       >Create order</a
-    ><a [routerLink]="'/' + addSculptureRoute" routerLinkActive="active"
+    ><a
+      [routerLink]="'/' + addSculptureRoute"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
       >Create sculpture</a
     ></app-navigation
   >

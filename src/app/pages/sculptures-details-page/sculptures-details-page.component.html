@@ -3,8 +3,16 @@
   [previousItemRoute]="previousSculptureRoute$ | async"
   [nextItemRoute]="nextSculptureRoute$ | async"
 >
-  <app-sculpture-details
-    *ngIf="sculpture$ | async as sculpture"
-    [sculpture]="sculpture"
-  ></app-sculpture-details>
+  <app-redirect-warning
+    *ngIf="!dataSaved && warningOpen"
+    (cancel)="cancelRedirect()"
+    (confirm)="confirmRedirect()"
+  ></app-redirect-warning>
+
+  <app-sculpture-form
+    *ngIf="sculpture$ | async"
+    [sculpture]="sculpture$ | async"
+    (cancel)="cancel()"
+    (submit)="updateSculpture($event)"
+  ></app-sculpture-form>
 </app-item-details-layout>

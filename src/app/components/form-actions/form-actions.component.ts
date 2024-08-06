@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class FormActionsComponent {
   @Output() cancel = new EventEmitter();
 
-  cancelHandler() {
+  cancelClickHandler(): void {
     this.cancel.emit();
   }
 }

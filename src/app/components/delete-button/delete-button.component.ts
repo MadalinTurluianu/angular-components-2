@@ -12,7 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 export class DeleteButtonComponent {
   @Output() click = new EventEmitter();
 
-  deleteHandler() {
+  clickHandler(): void {
     this.click.emit();
   }
 }

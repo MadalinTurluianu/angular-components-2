@@ -1,6 +1,11 @@
-<main class="page-content">
+<app-base-layout
+  ><app-redirect-warning
+    *ngIf="!dataSaved && warningOpen"
+    (cancel)="cancelRedirect()"
+    (confirm)="confirmRedirect()"
+  ></app-redirect-warning>
   <app-sculpture-form
-    (sculpture)="onSculptureCreated($event)"
-    (cancel)="cancelHandler()"
+    (submit)="updateSculpture($event)"
+    (cancel)="cancel()"
   ></app-sculpture-form>
-</main>
+</app-base-layout>

@@ -3,6 +3,8 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
+  OnInit,
   Output,
 } from '@angular/core';
 import {
@@ -30,10 +32,11 @@ import {
   calculateConfiguredSculpturePrice,
   calculateConfiguredSculptureWeight,
   createFormErrorMessage,
-  customValidators,
+  formValidators,
 } from '../../helpers';
 import { OrderSummaryComponent } from '../order-summary/order-summary.component';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-order-form',
@@ -54,14 +57,18 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   styleUrl: './order-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderFormComponent {
+export class OrderFormComponent implements OnChanges, OnInit {
+  @Input() order: Order | null | undefined;
   @Input({ required: true }) sculptures!: Sculpture[];
   @Input({ required: true }) materials!: Material[];
   @Input({ required: true }) materialsInfo!: MaterialsInfo;
-  @Output() order = new EventEmitter<Order>();
+
+  @Output() submit = new EventEmitter<Order>();
   @Output() cancel = new EventEmitter();
+  @Output() dirty = new EventEmitter<boolean>();
 
   submitted: boolean = false;
+  formStatusSubscription?: Subscription;
   errorMessage = createFormErrorMessage;
 
   formData = new FormGroup({
@@ -69,21 +76,21 @@ export class OrderFormComponent {
       validators: [
         Validators.required,
         Validators.minLength(1),
-        customValidators.noWhitespace,
+        formValidators.noWhitespace,
       ],
     }),
     buyerDeliveryAddress: new FormControl<string>('', {
       validators: [
         Validators.required,
         Validators.minLength(1),
-        customValidators.noWhitespace,
+        formValidators.noWhitespace,
       ],
     }),
     configuredSculpture: new FormControl<Partial<ConfiguredSculpture> | null>(
       null
     ),
     configuredSculptures: new FormControl<ConfiguredSculptureDetails[]>([], {
-      validators: [customValidators.noEmptyArray],
+      validators: [formValidators.noEmptyArray],
     }),
     totalWeight: new FormControl<number>(0, {
       validators: [Validators.max(100)],
@@ -91,44 +98,51 @@ export class OrderFormComponent {
     totalPrice: new FormControl<number>(0),
   });
 
-  updateConfiguredSculptures(
-    updatedConfiguredSculptures: ConfiguredSculptureDetails[]
-  ) {
+  ngOnChanges(): void {
+    if (this.order) {
+      this.formData.patchValue({
+        buyerName: this.order.buyerName,
+        buyerDeliveryAddress: this.order.buyerDeliveryAddress,
+      });
+      this.updateConfiguredSculptures(this.order.configuredSculptures);
+    }
+  }
+
+  ngOnInit(): void {
+    this.formStatusSubscription = this.formData.valueChanges.subscribe(() => {
+      this.dirty.emit(this.formData.dirty);
+    });
+  }
+
+  updateConfiguredSculptures(updatedValue: ConfiguredSculptureDetails[]): void {
     this.formData.patchValue({
-      configuredSculptures: updatedConfiguredSculptures,
-      totalPrice: updatedConfiguredSculptures.reduce(
-        (total, { price }) => total + price,
-        0
-      ),
-      totalWeight: updatedConfiguredSculptures.reduce(
+      configuredSculptures: updatedValue,
+      totalPrice: updatedValue.reduce((total, { price }) => total + price, 0),
+      totalWeight: updatedValue.reduce(
         (total, { weight }) => total + weight,
         0
       ),
     });
   }
 
-  addConfiguredSculpture() {
-    if (
-      this.formData.value.configuredSculpture?.material == null ||
-      this.formData.value.configuredSculpture?.sculpture == null
-    ) {
+  addConfiguredSculpture(): void {
+    if (!this.formData.value.configuredSculpture) return;
+
+    const { material, sculpture } = this.formData.value.configuredSculpture;
+
+    if (material == null || sculpture == null) {
       return;
     }
 
-    const validatedConfiguredSculpture = {
-      material: this.formData.value.configuredSculpture.material,
-      sculpture: this.formData.value.configuredSculpture.sculpture,
-    };
-
     const configuredSculpture: ConfiguredSculptureDetails = {
-      material: validatedConfiguredSculpture.material,
-      sculpture: validatedConfiguredSculpture.sculpture,
+      material: material,
+      sculpture: sculpture,
       price: calculateConfiguredSculpturePrice(
-        validatedConfiguredSculpture,
+        { material, sculpture },
         this.materialsInfo
       ),
       weight: calculateConfiguredSculptureWeight(
-        validatedConfiguredSculpture,
+        { material, sculpture },
         this.materialsInfo
       ),
     };
@@ -141,18 +155,18 @@ export class OrderFormComponent {
     ]);
   }
 
-  removeConfiguredSculpture(index: number) {
+  removeConfiguredSculpture(index: number): void {
     const configuredSculptures = this.formData.value.configuredSculptures ?? [];
     this.updateConfiguredSculptures(
       configuredSculptures.filter((_, i) => i !== index)
     );
   }
 
-  cancelHandler() {
+  cancelHandler(): void {
     this.cancel.emit();
   }
 
-  submitHandler() {
+  submitHandler(): void {
     this.submitted = true;
     const controls = this.formData.controls;
 
@@ -173,7 +187,7 @@ export class OrderFormComponent {
       totalPrice,
     } = this.formData.value;
 
-    this.order.emit({
+    this.submit.emit({
       id: crypto.randomUUID(),
       buyerName: buyerName!,
       buyerDeliveryAddress: buyerDeliveryAddress!,

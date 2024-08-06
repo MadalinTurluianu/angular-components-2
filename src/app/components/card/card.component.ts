@@ -13,14 +13,15 @@ import { MatButtonModule } from '@angular/material/button';
 export class CardComponent {
   @Input() actionName: string | undefined;
   @Input() withDelete: boolean = false;
+  
   @Output() actionClick = new EventEmitter<void>();
   @Output() deleteClick = new EventEmitter<void>();
 
-  actionClickHandler() {
+  actionClickHandler(): void {
     this.actionClick.emit();
   }
 
-  deleteClickHandler() {
+  deleteClickHandler(): void {
     this.deleteClick.emit();
   }
 }

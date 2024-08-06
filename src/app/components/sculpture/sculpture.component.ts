@@ -12,14 +12,15 @@ import { CardComponent } from '../card/card.component';
 })
 export class SculptureComponent {
   @Input({ required: true }) sculpture!: Sculpture;
+  
   @Output() seeSculptureDetails = new EventEmitter<Sculpture>();
   @Output() deleteSculpture = new EventEmitter<Sculpture>();
 
-  sculptureDetailsClickHandler() {
+  sculptureDetailsClickHandler(): void {
     this.seeSculptureDetails.emit(this.sculpture);
   }
 
-  deleteSculptureClickHandler() {
+  deleteSculptureClickHandler(): void {
     this.deleteSculpture.emit(this.sculpture);
   }
 }

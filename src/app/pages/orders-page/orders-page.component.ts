@@ -20,11 +20,11 @@ export class OrdersPageComponent {
     this.orders = this.ordersService.getAllOrders();
   }
 
-  orderSelectedHandler(order: Order) {
+  orderSelectedHandler(order: Order): void {
     this.router.navigate(['orders', order.id]);
   }
 
-  orderDeletedHandler(order: Order) {
+  orderDeletedHandler(order: Order): void {
     this.orders = this.ordersService.deleteOrder(order.id);
   }
 }

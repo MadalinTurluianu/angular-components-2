@@ -1,9 +1,14 @@
-<main class="page-content">
+<app-base-layout>
+  <app-redirect-warning
+    *ngIf="!dataSaved && warningOpen"
+    (cancel)="cancelRedirect()"
+    (confirm)="confirmRedirect()"
+  ></app-redirect-warning>
   <app-order-form
     [sculptures]="sculptures"
     [materials]="materials"
     [materialsInfo]="materialsInfo"
-    (cancel)="cancelHandler()"
-    (order)="onCreateOrder($event)"
-  ></app-order-form>
-</main>
+    (cancel)="cancel()"
+    (submit)="createOrder($event)"
+  ></app-order-form
+></app-base-layout>

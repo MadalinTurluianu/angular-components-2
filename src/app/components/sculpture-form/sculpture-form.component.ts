@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,8 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Sculpture } from '../../types';
 import { FormActionsComponent } from '../form-actions/form-actions.component';
-import { createFormErrorMessage, customValidators } from '../../helpers';
-import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { createFormErrorMessage, formValidators } from '../../helpers';
 
 @Component({
   selector: 'app-sculpture-form',
@@ -24,33 +30,45 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   templateUrl: './sculpture-form.component.html',
   styleUrl: './sculpture-form.component.scss',
 })
-export class SculptureFormComponent {
-  @Output() sculpture = new EventEmitter<Sculpture>();
+export class SculptureFormComponent implements OnChanges {
+  @Input() sculpture: Sculpture | null | undefined;
+
+  @Output() submit = new EventEmitter<Sculpture>();
   @Output() cancel = new EventEmitter();
+
+  errorMessage = createFormErrorMessage;
 
   formData = new FormGroup({
     name: new FormControl<string>('', {
       validators: [
         Validators.required,
         Validators.minLength(1),
-        customValidators.noWhitespace,
+        formValidators.noWhitespace,
       ],
     }),
-    basePrice: new FormControl<number | null>(null, {
+    basePrice: new FormControl<number | undefined>(undefined, {
       validators: [Validators.required, Validators.min(0.01)],
     }),
-    baseWeight: new FormControl<number | null>(null, {
+    baseWeight: new FormControl<number | undefined>(undefined, {
       validators: [Validators.required, Validators.min(0.01)],
     }),
   });
 
-  errorMessage = createFormErrorMessage;
+  ngOnChanges(): void {
+    if (this.sculpture) {
+      this.formData.patchValue({
+        name: this.sculpture.name,
+        basePrice: this.sculpture.basePrice,
+        baseWeight: this.sculpture.baseWeight,
+      });
+    }
+  }
 
-  cancelHandler() {
+  cancelHandler(): void {
     this.cancel.emit();
   }
 
-  submitHandler() {
+  submitHandler(): void {
     const controls = this.formData.controls;
 
     if (
@@ -63,8 +81,8 @@ export class SculptureFormComponent {
 
     const { basePrice, baseWeight, name } = this.formData.value;
 
-    return this.sculpture.emit({
-      id: crypto.randomUUID(),
+    return this.submit.emit({
+      id: this.sculpture?.id ?? crypto.randomUUID(),
       name: name!.trim(),
       basePrice: basePrice!,
       baseWeight: baseWeight!,

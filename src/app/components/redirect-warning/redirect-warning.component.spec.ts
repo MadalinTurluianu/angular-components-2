@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderDetailsComponent } from './order-details.component';
+import { RedirectWarningComponent } from './redirect-warning.component';
 
-describe('OrderDetailsComponent', () => {
-  let component: OrderDetailsComponent;
-  let fixture: ComponentFixture<OrderDetailsComponent>;
+describe('RedirectWarningComponent', () => {
+  let component: RedirectWarningComponent;
+  let fixture: ComponentFixture<RedirectWarningComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OrderDetailsComponent]
+      imports: [RedirectWarningComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OrderDetailsComponent);
+    fixture = TestBed.createComponent(RedirectWarningComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

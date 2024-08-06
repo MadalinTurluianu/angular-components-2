@@ -19,14 +19,15 @@ import { CardComponent } from '../card/card.component';
 })
 export class OrderComponent {
   @Input({ required: true }) order!: Order;
+  
   @Output() seeOrderDetails = new EventEmitter<Order>();
   @Output() deleteOrder = new EventEmitter<Order>();
 
-  orderDetailsClickHandler() {
+  orderDetailsClickHandler(): void {
     this.seeOrderDetails.emit(this.order);
   }
 
-  deleteOrderClickHandler() {
+  deleteOrderClickHandler(): void {
     this.deleteOrder.emit(this.order);
   }
 }

@@ -4,7 +4,9 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ConfiguredSculpture, Material, Sculpture } from '../../types';
@@ -31,6 +33,7 @@ type OnChangeFunction = (value: Partial<ConfiguredSculpture>) => void;
 export class ConfiguredSculptureComponent implements ControlValueAccessor {
   @Input() sculptures: Sculpture[] = [];
   @Input() materials: Material[] = [];
+  
   @Output() order = new EventEmitter<ConfiguredSculpture>();
 
   sculpture: Sculpture | undefined;
@@ -39,7 +42,7 @@ export class ConfiguredSculptureComponent implements ControlValueAccessor {
   onChange: OnChangeFunction = () => {};
   onTouch: VoidFunction = () => {};
 
-  changeHandler() {
+  changeHandler(): void {
     this.onChange({
       material: this.material,
       sculpture: this.sculpture,

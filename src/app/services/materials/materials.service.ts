@@ -5,8 +5,6 @@ import { Material, MaterialsInfo } from '../../types';
   providedIn: 'root',
 })
 export class MaterialsService {
-  constructor() {}
-
   private materials = [Material.Wood, Material.Bronze, Material.Platinum];
 
   private materialsInfo: MaterialsInfo = {

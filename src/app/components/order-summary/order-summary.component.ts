@@ -13,13 +13,14 @@ import { DeleteButtonComponent } from '../delete-button/delete-button.component'
   styleUrl: './order-summary.component.scss',
 })
 export class OrderSummaryComponent {
-  @Input({ required: true })
-  configuredSculptures!: ConfiguredSculptureDetails[];
   @Input({ required: true }) totalPrice!: number;
   @Input({ required: true }) totalWeight!: number;
+  @Input({ required: true })
+  configuredSculptures!: ConfiguredSculptureDetails[];
+
   @Output() remove: EventEmitter<number> = new EventEmitter();
 
-  deleteHandler(index: number) {
+  deleteHandler(index: number): void {
     this.remove.emit(index);
   }
 }

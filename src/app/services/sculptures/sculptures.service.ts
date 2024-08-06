@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Sculpture } from '../../types';
+import { modelValidators } from '../../helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +10,11 @@ export class SculpturesService {
 
   constructor() {
     const savedSculptures = localStorage.getItem('sculptures');
-    const sculptures: Sculpture[] = savedSculptures
+    let sculptures: Sculpture[] = savedSculptures
       ? JSON.parse(savedSculptures)
       : [];
+      
+    sculptures = sculptures.filter(modelValidators.sculpture);
     this.sculptures = sculptures;
   }
 
@@ -23,8 +26,17 @@ export class SculpturesService {
     return this.sculptures;
   }
 
-  addSculpture(sculpture: Sculpture): Sculpture[] {
-    this.sculptures.push(sculpture);
+  upsertSculpture(sculpture: Sculpture): Sculpture[] {
+    const sculptureIndex = this.sculptures.findIndex(
+      ({ id }) => id === sculpture.id
+    );
+
+    if (sculptureIndex >= 0) {
+      this.sculptures[sculptureIndex] = sculpture;
+    } else {
+      this.sculptures.push(sculpture);
+    }
+
     this.saveSculptures();
     return this.sculptures;
   }

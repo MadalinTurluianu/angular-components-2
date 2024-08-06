@@ -6,6 +6,7 @@ $error-color: #ba1a1a;
 $max-width: 620px;
 $border-radius-small: 3px;
 $padding-small: 0.5rem;
+$padding-big: 1.5rem;
 
 html,
 body,
@@ -47,9 +48,7 @@ body {
       text-decoration: none;
     }
 
-    a:hover,
-    a:focus,
-    a:active {
+    a:hover {
       color: $accent-color;
     }
   }

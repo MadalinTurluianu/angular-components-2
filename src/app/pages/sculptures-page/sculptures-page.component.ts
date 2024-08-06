@@ -23,11 +23,11 @@ export class SculpturesPageComponent {
     this.sculptures = this.sculpturesService.getAllSculptures();
   }
 
-  sculptureSelectedHandler(sculpture: Sculpture) {
+  sculptureSelectedHandler(sculpture: Sculpture): void {
     this.router.navigate(['sculptures', sculpture.id]);
   }
 
-  sculptureDeletedHandler(sculpture: Sculpture) {
+  sculptureDeletedHandler(sculpture: Sculpture): void {
     this.sculptures = this.sculpturesService.deleteSculpture(sculpture.id);
   }
 }
