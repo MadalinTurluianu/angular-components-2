@@ -42,12 +42,11 @@ export class AddOrderPageComponent {
   }
 
   cancelHandler() {
-    console.log('cancel');
-
     this.router.navigate([AppRoutes.Orders]);
   }
 
   onCreateOrder(order: Order) {
     this.ordersService.addOrder(order);
+    this.router.navigate([AppRoutes.Orders]);
   }
 }

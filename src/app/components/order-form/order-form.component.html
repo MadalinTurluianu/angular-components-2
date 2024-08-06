@@ -1,19 +1,18 @@
-<form class="form" [formGroup]="formData" (submit)="submitHandler()">
+<form class="form" [formGroup]="formData" (ngSubmit)="submitHandler()">
   <h2>Create an order</h2>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Buyer name</mat-label>
-    <input matInput type="text" formControlName="buyerName" />
+    <input matInput formControlName="buyerName" />
+    <mat-error>{{ errorMessage(formData.get("buyerName")?.errors) }}</mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Buyer delivery address</mat-label>
-    <input
-      matInput
-      type="text"
-      name="buyer-delivery-address"
-      formControlName="buyerDeliveryAddress"
-    />
+    <input matInput formControlName="buyerDeliveryAddress" />
+    <mat-error>{{
+      errorMessage(formData.get("buyerDeliveryAddress")?.errors)
+    }}</mat-error>
   </mat-form-field>
 
   <div class="configured-sculpture-container">
@@ -28,11 +27,21 @@
   </div>
 
   <app-order-summary
-    [configuredSculptures]="configuredSculptures"
-    [totalPrice]="totalPrice"
-    [totalWeight]="totalWeight"
+    *ngIf="formData.value.configuredSculptures?.length"
+    [configuredSculptures]="formData.value.configuredSculptures ?? []"
+    [totalPrice]="formData.value.totalPrice ?? 0"
+    [totalWeight]="formData.value.totalWeight ?? 0"
     (remove)="removeConfiguredSculpture($event)"
   ></app-order-summary>
+
+  <app-error-message
+    *ngIf="submitted && formData.get('totalWeight')?.errors"
+    [message]="errorMessage(formData.get('totalWeight')?.errors) + 'kg'"
+  ></app-error-message>
+  <app-error-message
+    *ngIf="submitted && formData.get('configuredSculptures')?.errors"
+    [message]="errorMessage(formData.get('configuredSculptures')?.errors)"
+  ></app-error-message>
 
   <app-form-actions (cancel)="cancelHandler()"></app-form-actions>
 </form>

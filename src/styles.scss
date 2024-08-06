@@ -2,12 +2,10 @@ $primary-color: #2e2f32;
 $secondary-color: #ffffff;
 $tertiary-color: #8fc6fc;
 $accent-color: #1469c0;
-$error-color: #ff5b50;
+$error-color: #ba1a1a;
 $max-width: 620px;
-
-* {
-  box-sizing: border-box;
-}
+$border-radius-small: 3px;
+$padding-small: 0.5rem;
 
 html,
 body,
@@ -19,15 +17,6 @@ app-root {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type="number"] {
-  -moz-appearance: textfield;
 }
 
 .form {
@@ -73,10 +62,27 @@ input[type="number"] {
   max-width: $max-width;
   margin: auto;
   padding: 1.5rem;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-color: $tertiary-color transparent;
+  scrollbar-width: thin;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }

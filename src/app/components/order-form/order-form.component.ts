@@ -18,8 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -29,8 +29,11 @@ import { FormActionsComponent } from '../form-actions/form-actions.component';
 import {
   calculateConfiguredSculpturePrice,
   calculateConfiguredSculptureWeight,
+  createFormErrorMessage,
+  customValidators,
 } from '../../helpers';
 import { OrderSummaryComponent } from '../order-summary/order-summary.component';
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 @Component({
   selector: 'app-order-form',
@@ -41,11 +44,11 @@ import { OrderSummaryComponent } from '../order-summary/order-summary.component'
     MatButtonModule,
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
     ConfiguredSculptureComponent,
     MatIcon,
     FormActionsComponent,
     OrderSummaryComponent,
+    ErrorMessageComponent,
   ],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.scss',
@@ -58,54 +61,91 @@ export class OrderFormComponent {
   @Output() order = new EventEmitter<Order>();
   @Output() cancel = new EventEmitter();
 
-  configuredSculptures: ConfiguredSculptureDetails[] = [];
-  totalWeight: number = 0;
-  totalPrice: number = 0;
+  submitted: boolean = false;
+  errorMessage = createFormErrorMessage;
 
   formData = new FormGroup({
-    buyerName: new FormControl<string>(''),
-    buyerDeliveryAddress: new FormControl<string>(''),
-    configuredSculpture: new FormControl<ConfiguredSculpture | null>(null),
+    buyerName: new FormControl<string>('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        customValidators.noWhitespace,
+      ],
+    }),
+    buyerDeliveryAddress: new FormControl<string>('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        customValidators.noWhitespace,
+      ],
+    }),
+    configuredSculpture: new FormControl<Partial<ConfiguredSculpture> | null>(
+      null
+    ),
+    configuredSculptures: new FormControl<ConfiguredSculptureDetails[]>([], {
+      validators: [customValidators.noEmptyArray],
+    }),
+    totalWeight: new FormControl<number>(0, {
+      validators: [Validators.max(100)],
+    }),
+    totalPrice: new FormControl<number>(0),
   });
 
-  resetWeightAndPrice() {
-    this.totalWeight = this.configuredSculptures.reduce(
-      (total, { weight }) => total + weight,
-      0
-    );
-
-    this.totalPrice = this.configuredSculptures.reduce(
-      (total, { price }) => total + price,
-      0
-    );
+  updateConfiguredSculptures(
+    updatedConfiguredSculptures: ConfiguredSculptureDetails[]
+  ) {
+    this.formData.patchValue({
+      configuredSculptures: updatedConfiguredSculptures,
+      totalPrice: updatedConfiguredSculptures.reduce(
+        (total, { price }) => total + price,
+        0
+      ),
+      totalWeight: updatedConfiguredSculptures.reduce(
+        (total, { weight }) => total + weight,
+        0
+      ),
+    });
   }
 
   addConfiguredSculpture() {
-    const configuredSculpture = this.formData.value.configuredSculpture;
-
-    if (!configuredSculpture?.material || !configuredSculpture?.sculpture) {
+    if (
+      this.formData.value.configuredSculpture?.material == null ||
+      this.formData.value.configuredSculpture?.sculpture == null
+    ) {
       return;
     }
 
-    this.configuredSculptures.push({
-      material: configuredSculpture.material,
-      sculpture: configuredSculpture.sculpture,
+    const validatedConfiguredSculpture = {
+      material: this.formData.value.configuredSculpture.material,
+      sculpture: this.formData.value.configuredSculpture.sculpture,
+    };
+
+    const configuredSculpture: ConfiguredSculptureDetails = {
+      material: validatedConfiguredSculpture.material,
+      sculpture: validatedConfiguredSculpture.sculpture,
       price: calculateConfiguredSculpturePrice(
-        configuredSculpture,
+        validatedConfiguredSculpture,
         this.materialsInfo
       ),
       weight: calculateConfiguredSculptureWeight(
-        configuredSculpture,
+        validatedConfiguredSculpture,
         this.materialsInfo
       ),
-    });
+    };
 
-    this.resetWeightAndPrice();
+    const configuredSculptures = this.formData.value.configuredSculptures ?? [];
+
+    this.updateConfiguredSculptures([
+      ...configuredSculptures,
+      configuredSculpture,
+    ]);
   }
 
   removeConfiguredSculpture(index: number) {
-    this.configuredSculptures.splice(index, 1);
-    this.resetWeightAndPrice();
+    const configuredSculptures = this.formData.value.configuredSculptures ?? [];
+    this.updateConfiguredSculptures(
+      configuredSculptures.filter((_, i) => i !== index)
+    );
   }
 
   cancelHandler() {
@@ -113,19 +153,33 @@ export class OrderFormComponent {
   }
 
   submitHandler() {
+    this.submitted = true;
+    const controls = this.formData.controls;
+
     if (
-      this.formData.value.buyerName &&
-      this.formData.value.buyerDeliveryAddress &&
-      this.configuredSculptures.length > 0
+      controls.configuredSculptures.invalid ||
+      controls.totalWeight.invalid ||
+      controls.buyerName.invalid ||
+      controls.buyerDeliveryAddress.invalid
     ) {
-      this.order.emit({
-        id: crypto.randomUUID(),
-        buyerName: this.formData.value.buyerName,
-        buyerDeliveryAddress: this.formData.value.buyerDeliveryAddress,
-        configuredSculptures: this.configuredSculptures,
-        totalWeight: this.totalWeight,
-        totalPrice: this.totalPrice,
-      });
+      return;
     }
+
+    const {
+      buyerName,
+      buyerDeliveryAddress,
+      configuredSculptures,
+      totalWeight,
+      totalPrice,
+    } = this.formData.value;
+
+    this.order.emit({
+      id: crypto.randomUUID(),
+      buyerName: buyerName!,
+      buyerDeliveryAddress: buyerDeliveryAddress!,
+      configuredSculptures: configuredSculptures!,
+      totalWeight: totalWeight!,
+      totalPrice: totalPrice!,
+    });
   }
 }

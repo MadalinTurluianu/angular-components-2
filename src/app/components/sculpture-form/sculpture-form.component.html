@@ -1,31 +1,24 @@
-<form class="form" (ngSubmit)="submitHandler()">
+<form class="form" [formGroup]="formData" (ngSubmit)="submitHandler()">
   <h2>Create a sculpture</h2>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
-    <input matInput type="text" name="name" [(ngModel)]="name" minlength="1" />
+    <input matInput formControlName="name" minlength="1" />
+    <mat-error>{{ errorMessage(formData.get("name")?.errors) }}</mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Base Price (€)</mat-label>
-    <input
-      matInput
-      type="number"
-      name="price"
-      [(ngModel)]="basePrice"
-      min="0"
-    />
+    <input matInput type="number" formControlName="basePrice" min="0" />
+    <mat-error>{{ errorMessage(formData.get("basePrice")?.errors) }}</mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Base weight (kg)</mat-label>
-    <input
-      matInput
-      type="number"
-      name="weight"
-      [(ngModel)]="baseWeight"
-      min="0"
-    />
+    <input matInput type="number" formControlName="baseWeight" min="0" />
+    <mat-error>{{
+      errorMessage(formData.get("baseWeight")?.errors)
+    }}</mat-error>
   </mat-form-field>
 
   <app-form-actions (cancel)="cancelHandler()"></app-form-actions>
