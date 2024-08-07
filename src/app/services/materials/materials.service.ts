@@ -1,26 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Material, MaterialsInfo } from '../../types';
+import { MATERIALS, MATERIALS_INFO } from '../../constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MaterialsService {
-  private materials = [Material.Wood, Material.Bronze, Material.Platinum];
+  private materials: Material[] = MATERIALS;
 
-  private materialsInfo: MaterialsInfo = {
-    [Material.Wood]: {
-      priceMultiplier: 1,
-      weightMultiplier: 1,
-    },
-    [Material.Bronze]: {
-      priceMultiplier: 2,
-      weightMultiplier: 12.4,
-    },
-    [Material.Platinum]: {
-      priceMultiplier: 18,
-      weightMultiplier: 30.3,
-    },
-  };
+  private materialsInfo: MaterialsInfo = MATERIALS_INFO;
 
   getMaterialsInfo(): MaterialsInfo {
     return this.materialsInfo;

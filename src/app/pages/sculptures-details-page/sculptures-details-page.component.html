@@ -13,7 +13,7 @@
     *ngIf="sculpture$ | async"
     [sculpture]="sculpture$ | async"
     (cancel)="cancel()"
-    (submit)="updateSculpture($event)"
+    (safeSubmit)="updateSculpture($event)"
     (dirty)="setFormDirty($event)"
   ></app-sculpture-form>
 </app-item-details-layout>

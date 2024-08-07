@@ -34,7 +34,7 @@ import { Subscription } from 'rxjs';
 export class SculptureFormComponent implements OnChanges {
   @Input() sculpture: Sculpture | null | undefined;
 
-  @Output() submit = new EventEmitter<Sculpture>();
+  @Output() safeSubmit = new EventEmitter<Sculpture>();
   @Output() cancel = new EventEmitter();
   @Output() dirty = new EventEmitter<boolean>();
 
@@ -92,7 +92,7 @@ export class SculptureFormComponent implements OnChanges {
 
     const { basePrice, baseWeight, name } = this.formData.value;
 
-    return this.submit.emit({
+    return this.safeSubmit.emit({
       id: this.sculpture?.id ?? crypto.randomUUID(),
       name: name!.trim(),
       basePrice: basePrice!,

@@ -1,12 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   HostListener,
   Input,
-  OnChanges,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ConfiguredSculpture, Material, Sculpture } from '../../types';
@@ -21,7 +18,6 @@ type OnChangeFunction = (value: Partial<ConfiguredSculpture>) => void;
   imports: [MatSelectModule, MatButtonModule],
   templateUrl: './configured-sculpture.component.html',
   styleUrl: './configured-sculpture.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -33,7 +29,7 @@ type OnChangeFunction = (value: Partial<ConfiguredSculpture>) => void;
 export class ConfiguredSculptureComponent implements ControlValueAccessor {
   @Input() sculptures: Sculpture[] = [];
   @Input() materials: Material[] = [];
-  
+
   @Output() order = new EventEmitter<ConfiguredSculpture>();
 
   sculpture: Sculpture | undefined;

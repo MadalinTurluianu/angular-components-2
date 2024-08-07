@@ -5,7 +5,7 @@
     (confirm)="confirmRedirect()"
   ></app-redirect-warning>
   <app-sculpture-form
-    (submit)="updateSculpture($event)"
+    (safeSubmit)="updateSculpture($event)"
     (cancel)="cancel()"
     (dirty)="setFormDirty($event)"
   ></app-sculpture-form>

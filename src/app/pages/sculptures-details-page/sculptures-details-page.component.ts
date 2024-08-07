@@ -90,6 +90,7 @@ export class SculpturesDetailsPageComponent implements OnInit {
   }
 
   updateSculpture(sculpture: Sculpture): void {
+    this.dataSaved = true;
     this.sculpturesService.upsertSculpture(sculpture);
     this.router.navigate([AppRoutes.Sculptures]);
   }
@@ -112,7 +113,7 @@ export class SculpturesDetailsPageComponent implements OnInit {
     this.redirectUrl = url;
   }
 
-  setFormDirty(dirty: boolean): void {    
+  setFormDirty(dirty: boolean): void {
     this.dataSaved = !dirty;
   }
 

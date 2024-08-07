@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -57,7 +56,6 @@ import { Subscription } from 'rxjs';
   ],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderFormComponent implements OnChanges, OnInit {
   @Input() order: Order | null | undefined;
@@ -65,7 +63,7 @@ export class OrderFormComponent implements OnChanges, OnInit {
   @Input({ required: true }) materials!: Material[];
   @Input({ required: true }) materialsInfo!: MaterialsInfo;
 
-  @Output() submit = new EventEmitter<Order>();
+  @Output() safeSubmit = new EventEmitter<Order>();
   @Output() cancel = new EventEmitter();
   @Output() dirty = new EventEmitter<boolean>();
 
@@ -188,10 +186,10 @@ export class OrderFormComponent implements OnChanges, OnInit {
       totalPrice,
     } = this.formData.value;
 
-    this.submit.emit({
-      id: crypto.randomUUID(),
-      buyerName: buyerName!,
-      buyerDeliveryAddress: buyerDeliveryAddress!,
+    this.safeSubmit.emit({
+      id: this.order?.id ?? crypto.randomUUID(),
+      buyerName: buyerName!.trim(),
+      buyerDeliveryAddress: buyerDeliveryAddress!.trim(),
       configuredSculptures: configuredSculptures!,
       totalWeight: totalWeight!,
       totalPrice: totalPrice!,

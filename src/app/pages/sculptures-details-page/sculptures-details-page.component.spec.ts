@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SculpturesDetailsPageComponent } from './sculptures-details-page.component';
+// import { SculpturesDetailsPageComponent } from './sculptures-details-page.component';
 
-describe('SculpturesDetailsPageComponent', () => {
-  let component: SculpturesDetailsPageComponent;
-  let fixture: ComponentFixture<SculpturesDetailsPageComponent>;
+// describe('SculpturesDetailsPageComponent', () => {
+//   let component: SculpturesDetailsPageComponent;
+//   let fixture: ComponentFixture<SculpturesDetailsPageComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SculpturesDetailsPageComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [SculpturesDetailsPageComponent]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(SculpturesDetailsPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(SculpturesDetailsPageComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

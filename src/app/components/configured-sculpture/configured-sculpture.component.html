@@ -2,6 +2,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Sculpture</mat-label>
     <mat-select
+      data-testid="sculpture-select"
       [(value)]="sculpture"
       (valueChange)="changeHandler()"
     >
@@ -14,6 +15,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Material</mat-label>
     <mat-select
+      data-testid="material-select"
       [(value)]="material"
       (valueChange)="changeHandler()"
     >

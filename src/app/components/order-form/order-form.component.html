@@ -1,16 +1,27 @@
-<form class="form" [formGroup]="formData" (ngSubmit)="submitHandler()">
-  <h2>{{order?.id ? 'Update order' : 'Create an order'}}</h2>
+<form
+  class="form"
+  [formGroup]="formData"
+  (ngSubmit)="submitHandler()"
+  data-testid="order-form"
+>
+  <h2>{{ order?.id ? "Update order" : "Create an order" }}</h2>
 
   <mat-form-field appearance="outline">
     <mat-label>Buyer name</mat-label>
-    <input matInput formControlName="buyerName" name="buyerName"/>
-    <mat-error>{{ errorMessage(formData.get("buyerName")?.errors) }}</mat-error>
+    <input matInput formControlName="buyerName" data-testid="name-input" />
+    <mat-error data-testid="name-error">{{
+      errorMessage(formData.get("buyerName")?.errors)
+    }}</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Buyer delivery address</mat-label>
-    <input matInput formControlName="buyerDeliveryAddress" name="buyerDeliveryAddress"/>
-    <mat-error>{{
+    <input
+      matInput
+      formControlName="buyerDeliveryAddress"
+      data-testid="address-input"
+    />
+    <mat-error data-testid="address-error">{{
       errorMessage(formData.get("buyerDeliveryAddress")?.errors)
     }}</mat-error>
   </mat-form-field>
@@ -21,7 +32,12 @@
       [sculptures]="sculptures"
       formControlName="configuredSculpture"
     ></app-configured-sculpture>
-    <button mat-icon-button type="button" (click)="addConfiguredSculpture()">
+    <button
+      mat-icon-button
+      type="button"
+      (click)="addConfiguredSculpture()"
+      data-testid="add-button"
+    >
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -35,10 +51,12 @@
   ></app-order-summary>
 
   <app-error-message
+    data-testid="weight-error"
     *ngIf="submitted && formData.get('totalWeight')?.errors"
     [message]="errorMessage(formData.get('totalWeight')?.errors) + 'kg'"
   ></app-error-message>
   <app-error-message
+    data-testid="empty-list-error"
     *ngIf="submitted && formData.get('configuredSculptures')?.errors"
     [message]="errorMessage(formData.get('configuredSculptures')?.errors)"
   ></app-error-message>

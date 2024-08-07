@@ -36,6 +36,7 @@ export class AddSculpturePageComponent implements CanComponentDeactivate {
   }
 
   updateSculpture(sculpture: Sculpture) {
+    this.dataSaved = true;
     this.sculpturesService.upsertSculpture(sculpture);
     this.router.navigate([AppRoutes.Sculptures]);
   }

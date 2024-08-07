@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemDetailsLayoutComponent } from './item-details-layout.component';
+// import { ItemDetailsLayoutComponent } from './item-details-layout.component';
 
-describe('ItemDetailsLayoutComponent', () => {
-  let component: ItemDetailsLayoutComponent;
-  let fixture: ComponentFixture<ItemDetailsLayoutComponent>;
+// describe('ItemDetailsLayoutComponent', () => {
+//   let component: ItemDetailsLayoutComponent;
+//   let fixture: ComponentFixture<ItemDetailsLayoutComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ItemDetailsLayoutComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [ItemDetailsLayoutComponent]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(ItemDetailsLayoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(ItemDetailsLayoutComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

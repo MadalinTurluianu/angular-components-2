@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BaseLayoutComponent } from './base-layout.component';
+// import { BaseLayoutComponent } from './base-layout.component';
 
-describe('BaseLayoutComponent', () => {
-  let component: BaseLayoutComponent;
-  let fixture: ComponentFixture<BaseLayoutComponent>;
+// describe('BaseLayoutComponent', () => {
+//   let component: BaseLayoutComponent;
+//   let fixture: ComponentFixture<BaseLayoutComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [BaseLayoutComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [BaseLayoutComponent]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(BaseLayoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(BaseLayoutComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

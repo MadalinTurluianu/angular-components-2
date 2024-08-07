@@ -111,6 +111,7 @@ export class OrderDetailsPageComponent implements OnInit {
   }
 
   createOrder(order: Order): void {
+    this.dataSaved = true;
     this.ordersService.upsertOrder(order);
     this.router.navigate([AppRoutes.Orders]);
   }
