@@ -1,6 +1,18 @@
 .prev-next {
-  display: flex;
-  gap: 1rem;
-  flex-grow: 1;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-left: auto;
+}
+
+.back {
+  justify-self: flex-end;
+}
+
+.prev {
+  grid-column-start: 1;
+}
+
+.next {
+  grid-column-start: 2;
+  margin-left: 1rem;
 }

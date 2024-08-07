@@ -57,16 +57,17 @@ export class SculpturesService {
     const index = this.sculptures.findIndex((sculpture) => sculpture.id === id);
     if (index < 0) return;
 
-    const nextIndex = index + 1 >= this.sculptures.length ? 0 : index + 1;
-    return this.sculptures[nextIndex];
+    if (index + 1 >= this.sculptures.length) return undefined;
+
+    return this.sculptures[index + 1];
   }
 
   getPreviousSculpture(id: string): Sculpture | undefined {
     const index = this.sculptures.findIndex((sculpture) => sculpture.id === id);
     if (index < 0) return;
 
-    const previousIndex =
-      index - 1 < 0 ? this.sculptures.length - 1 : index - 1;
-    return this.sculptures[previousIndex];
+    if (index - 1 < 0) return undefined;
+
+    return this.sculptures[index - 1];
   }
 }

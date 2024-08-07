@@ -50,15 +50,17 @@ export class OrdersService {
     const index = this.orders.findIndex((order) => order.id === id);
     if (index < 0) return;
 
-    const nextIndex = index + 1 >= this.orders.length ? 0 : index + 1;
-    return this.orders[nextIndex];
+    if (index + 1 >= this.orders.length) return undefined;
+
+    return this.orders[index + 1];
   }
 
   getPreviousOrder(id: string): Order | undefined {
     const index = this.orders.findIndex((order) => order.id === id);
     if (index < 0) return;
 
-    const previousIndex = index - 1 < 0 ? this.orders.length - 1 : index - 1;
-    return this.orders[previousIndex];
+    if (index - 1 < 0) return undefined;
+
+    return this.orders[index - 1];
   }
 }

@@ -62,6 +62,7 @@ export class SculpturesDetailsPageComponent implements OnInit {
 
         const previousSculpture =
           this.sculpturesService.getPreviousSculpture(routeId);
+
         return of(
           previousSculpture
             ? `${AppRoutes.Sculptures}/${previousSculpture.id}`
@@ -76,6 +77,7 @@ export class SculpturesDetailsPageComponent implements OnInit {
         if (!routeId) return of(undefined);
 
         const nextSculpture = this.sculpturesService.getNextSculpture(routeId);
+
         return of(
           nextSculpture
             ? `${AppRoutes.Sculptures}/${nextSculpture.id}`
