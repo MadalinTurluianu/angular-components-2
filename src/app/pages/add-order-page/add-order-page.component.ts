@@ -48,6 +48,10 @@ export class AddOrderPageComponent implements CanComponentDeactivate {
     this.sculptures = sculptureService.getAllSculptures();
   }
 
+  redirectToAddSculpture(): void {
+    this.router.navigate([AppRoutes.AddSculpture]);
+  }
+
   cancel(): void {
     this.router.navigate([AppRoutes.Orders]);
   }

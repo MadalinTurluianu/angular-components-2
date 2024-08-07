@@ -5,6 +5,8 @@
 >
   <app-redirect-warning
     *ngIf="!dataSaved && warningOpen"
+    title="Are you sure?"
+    message="If you leave now all unsaved data will be lost."
     (cancel)="cancelRedirect()"
     (confirm)="confirmRedirect()"
   ></app-redirect-warning>

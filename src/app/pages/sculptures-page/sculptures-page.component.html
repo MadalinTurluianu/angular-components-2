@@ -1,6 +1,7 @@
 <app-base-layout>
   <main class="sculpture-list">
     <h2>Sculptures</h2>
+    <p *ngIf="sculptures.length < 1">There are no sculptures</p>
     <app-sculpture
       *ngFor="let sculpture of sculptures"
       [sculpture]="sculpture"

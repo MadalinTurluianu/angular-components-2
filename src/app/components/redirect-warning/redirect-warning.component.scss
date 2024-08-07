@@ -1,16 +1,25 @@
 @import "../../../styles.scss";
 
-.backdrop {
+.container {
   position: absolute;
   z-index: 100;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.backdrop {
+  position: absolute;
+  z-index: 101;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 
   p,
   h3 {
@@ -19,6 +28,8 @@
 }
 
 .popup {
+  position: absolute;
+  z-index: 102;
   padding: $padding-big;
   border-radius: $border-radius-small;
   background-color: $secondary-color;
@@ -31,7 +42,10 @@
 }
 
 .actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 2rem;
+  display: flex;
+  gap: 2rem;
+
+  button {
+    flex-grow: 1;
+  }
 }

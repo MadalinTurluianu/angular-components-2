@@ -12,7 +12,8 @@ import { MatIcon } from '@angular/material/icon';
 export class DeleteButtonComponent {
   @Output() click = new EventEmitter();
 
-  clickHandler(): void {
+  clickHandler(event: Event): void {
+    event.stopPropagation();    
     this.click.emit();
   }
 }

@@ -1,10 +1,21 @@
 <app-base-layout>
   <app-redirect-warning
     *ngIf="!dataSaved && warningOpen"
+    title="Are you sure?"
+    message="If you leave now all unsaved data will be lost."
     (cancel)="cancelRedirect()"
     (confirm)="confirmRedirect()"
   ></app-redirect-warning>
+  <app-redirect-warning
+    *ngIf="sculptures.length === 0"
+    [withCancel]="false"
+    title="No Sculptures"
+    message="You will be redirected to the add sculpture page."
+    (confirm)="redirectToAddSculpture()"
+  >
+  </app-redirect-warning>
   <app-order-form
+    *ngIf="sculptures.length > 0"
     [sculptures]="sculptures"
     [materials]="materials"
     [materialsInfo]="materialsInfo"
