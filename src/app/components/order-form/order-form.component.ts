@@ -159,6 +159,7 @@ export class OrderFormComponent implements OnChanges, OnInit {
     this.updateConfiguredSculptures(
       configuredSculptures.filter((_, i) => i !== index)
     );
+    this.dirty.emit(true);
   }
 
   cancelHandler(): void {
