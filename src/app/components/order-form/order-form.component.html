@@ -3,13 +3,13 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Buyer name</mat-label>
-    <input matInput formControlName="buyerName" />
+    <input matInput formControlName="buyerName" name="buyerName"/>
     <mat-error>{{ errorMessage(formData.get("buyerName")?.errors) }}</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Buyer delivery address</mat-label>
-    <input matInput formControlName="buyerDeliveryAddress" />
+    <input matInput formControlName="buyerDeliveryAddress" name="buyerDeliveryAddress"/>
     <mat-error>{{
       errorMessage(formData.get("buyerDeliveryAddress")?.errors)
     }}</mat-error>

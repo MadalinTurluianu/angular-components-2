@@ -31,6 +31,8 @@ import { FormActionsComponent } from '../form-actions/form-actions.component';
 import {
   calculateConfiguredSculpturePrice,
   calculateConfiguredSculptureWeight,
+  calculateTotalPrice,
+  calculateTotalWeight,
   createFormErrorMessage,
   formValidators,
 } from '../../helpers';
@@ -119,11 +121,8 @@ export class OrderFormComponent implements OnChanges, OnInit {
   updateConfiguredSculptures(updatedValue: ConfiguredSculptureDetails[]): void {
     this.formData.patchValue({
       configuredSculptures: updatedValue,
-      totalPrice: updatedValue.reduce((total, { price }) => total + price, 0),
-      totalWeight: updatedValue.reduce(
-        (total, { weight }) => total + weight,
-        0
-      ),
+      totalPrice: calculateTotalPrice(updatedValue),
+      totalWeight: calculateTotalWeight(updatedValue),
     });
   }
 
