@@ -43,6 +43,7 @@
   </div>
 
   <app-order-summary
+    data-testid="order-summary"
     *ngIf="formData.value.configuredSculptures?.length"
     [configuredSculptures]="formData.value.configuredSculptures ?? []"
     [totalPrice]="formData.value.totalPrice ?? 0"
