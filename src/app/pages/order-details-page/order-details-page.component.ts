@@ -106,7 +106,7 @@ export class OrderDetailsPageComponent implements OnInit {
     this.router.navigate([AppRoutes.Orders]);
   }
 
-  setFormDirty(dirty: boolean): void {    
+  setFormDirty(dirty: boolean): void {
     this.dataSaved = !dirty;
   }
 

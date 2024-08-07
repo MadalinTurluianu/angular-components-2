@@ -25,7 +25,7 @@ export function createFormErrorMessage(
   }
 
   if ('empty' in errors) {
-    errorMessages.push("You should add at least one item");
+    errorMessages.push('You should add at least one item');
   }
 
   return errorMessages.join('. ');

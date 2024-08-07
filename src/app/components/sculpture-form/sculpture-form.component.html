@@ -1,4 +1,9 @@
-<form class="form" [formGroup]="formData" (ngSubmit)="submitHandler()" data-testid="sculpture-form">
+<form
+  class="form"
+  [formGroup]="formData"
+  (ngSubmit)="submitHandler()"
+  data-testid="sculpture-form"
+>
   <h2>
     {{ this.sculpture?.id ? "Update sculpture" : "Create a sculpture" }}
   </h2>

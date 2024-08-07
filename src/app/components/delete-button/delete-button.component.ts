@@ -13,7 +13,7 @@ export class DeleteButtonComponent {
   @Output() click = new EventEmitter();
 
   clickHandler(event: Event): void {
-    event.stopPropagation();    
+    event.stopPropagation();
     this.click.emit();
   }
 }

@@ -13,7 +13,7 @@ export class SculpturesService {
     let sculptures: Sculpture[] = savedSculptures
       ? JSON.parse(savedSculptures)
       : [];
-      
+
     sculptures = sculptures.filter(modelValidators.sculpture);
     this.sculptures = sculptures;
   }
