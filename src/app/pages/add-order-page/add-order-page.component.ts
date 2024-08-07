@@ -33,7 +33,7 @@ export class AddOrderPageComponent implements CanComponentDeactivate {
   sculptures: Sculpture[] = [];
   materials: Material[] = [];
   materialsInfo: MaterialsInfo;
-  dataSaved: boolean = false;
+  dataSaved: boolean = true;
   warningOpen: boolean = false;
   redirectUrl: string | undefined;
 
@@ -70,6 +70,10 @@ export class AddOrderPageComponent implements CanComponentDeactivate {
   canDeactivate(): boolean {
     this.warningOpen = true;
     return this.dataSaved;
+  }
+
+  setFormDirty(dirty: boolean): void {
+    this.dataSaved = !dirty;
   }
 
   setRedirect(url: string): void {

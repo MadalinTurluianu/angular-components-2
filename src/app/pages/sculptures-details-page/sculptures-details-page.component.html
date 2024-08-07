@@ -14,5 +14,6 @@
     [sculpture]="sculpture$ | async"
     (cancel)="cancel()"
     (submit)="updateSculpture($event)"
+    (dirty)="setFormDirty($event)"
   ></app-sculpture-form>
 </app-item-details-layout>

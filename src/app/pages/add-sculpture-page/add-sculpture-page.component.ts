@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './add-sculpture-page.component.scss',
 })
 export class AddSculpturePageComponent implements CanComponentDeactivate {
-  dataSaved: boolean = false;
+  dataSaved: boolean = true;
   warningOpen: boolean = false;
   redirectUrl: string | undefined;
 
@@ -47,6 +47,10 @@ export class AddSculpturePageComponent implements CanComponentDeactivate {
 
   cancelRedirect(): void {
     this.warningOpen = false;
+  }
+
+  setFormDirty(dirty: boolean): void {
+    this.dataSaved = !dirty;
   }
 
   canDeactivate(): boolean {

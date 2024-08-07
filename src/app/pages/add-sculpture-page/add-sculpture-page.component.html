@@ -7,5 +7,6 @@
   <app-sculpture-form
     (submit)="updateSculpture($event)"
     (cancel)="cancel()"
+    (dirty)="setFormDirty($event)"
   ></app-sculpture-form>
 </app-base-layout>

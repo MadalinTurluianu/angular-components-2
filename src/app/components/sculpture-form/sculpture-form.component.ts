@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Sculpture } from '../../types';
 import { FormActionsComponent } from '../form-actions/form-actions.component';
 import { createFormErrorMessage, formValidators } from '../../helpers';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sculpture-form',
@@ -35,7 +36,9 @@ export class SculptureFormComponent implements OnChanges {
 
   @Output() submit = new EventEmitter<Sculpture>();
   @Output() cancel = new EventEmitter();
+  @Output() dirty = new EventEmitter<boolean>();
 
+  formStatusSubscription?: Subscription;
   errorMessage = createFormErrorMessage;
 
   formData = new FormGroup({
@@ -55,6 +58,8 @@ export class SculptureFormComponent implements OnChanges {
   });
 
   ngOnChanges(): void {
+    this.formData.reset();
+
     if (this.sculpture) {
       this.formData.patchValue({
         name: this.sculpture.name,
@@ -62,6 +67,12 @@ export class SculptureFormComponent implements OnChanges {
         baseWeight: this.sculpture.baseWeight,
       });
     }
+  }
+
+  ngOnInit(): void {
+    this.formStatusSubscription = this.formData.valueChanges.subscribe(() => {
+      this.dirty.emit(this.formData.dirty);
+    });
   }
 
   cancelHandler(): void {
@@ -87,5 +98,9 @@ export class SculptureFormComponent implements OnChanges {
       basePrice: basePrice!,
       baseWeight: baseWeight!,
     });
+  }
+
+  onDestroy(): void {
+    this.formStatusSubscription?.unsubscribe();
   }
 }

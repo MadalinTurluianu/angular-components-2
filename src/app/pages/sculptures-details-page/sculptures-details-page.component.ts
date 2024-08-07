@@ -27,7 +27,7 @@ export class SculpturesDetailsPageComponent implements OnInit {
   previousSculptureRoute$?: Observable<string | undefined>;
   routerSubscription?: Subscription;
   backRoute: string = AppRoutes.Sculptures;
-  dataSaved: boolean = false;
+  dataSaved: boolean = true;
   warningOpen: boolean = false;
   redirectUrl: string | undefined;
 
@@ -110,6 +110,10 @@ export class SculpturesDetailsPageComponent implements OnInit {
 
   setRedirect(url: string): void {
     this.redirectUrl = url;
+  }
+
+  setFormDirty(dirty: boolean): void {    
+    this.dataSaved = !dirty;
   }
 
   ngOnDestroy(): void {

@@ -99,6 +99,8 @@ export class OrderFormComponent implements OnChanges, OnInit {
   });
 
   ngOnChanges(): void {
+    this.formData.reset();
+
     if (this.order) {
       this.formData.patchValue({
         buyerName: this.order.buyerName,
@@ -195,5 +197,9 @@ export class OrderFormComponent implements OnChanges, OnInit {
       totalWeight: totalWeight!,
       totalPrice: totalPrice!,
     });
+  }
+
+  onDestroy(): void {
+    this.formStatusSubscription?.unsubscribe();
   }
 }
