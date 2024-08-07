@@ -37,6 +37,10 @@
       type="button"
       (click)="addConfiguredSculpture()"
       data-testid="add-button"
+      [disabled]="
+        !formData.value.configuredSculpture?.material ||
+        !formData.value.configuredSculpture?.sculpture
+      "
     >
       Add
     </button>
